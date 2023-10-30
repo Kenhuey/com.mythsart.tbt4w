@@ -30,7 +30,7 @@ function setDefaultValue(target: Object, propertyName: string) {
     Reflect.defineProperty(target, propertyName, propertyDescriptor);
 }
 
-export function injectTest(): PropertyDecorator {
+function injectTest(): PropertyDecorator {
     return (target, propertyKey) => {
         // instantiate descriptor
         const value = 7777;

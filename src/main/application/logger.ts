@@ -1,7 +1,8 @@
+import "reflect-metadata";
 import { Errors } from "../error";
 import { MetadataType } from "../constant/metadata";
 import Log4js from "log4js";
-import "reflect-metadata";
+
 
 /*
  * Logger

@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "An unofficial user utilities manager of Baidu-Tieba",
     "main": "./out/main/index.js",
-    "author": "mythsart.com",
+    "author": "kenhuey@mythsart.com",
     "homepage": "https://tbt4w.mythsart.com/",
     "scripts": {
         "format": "prettier --write .",
@@ -21,8 +21,7 @@
     },
     "dependencies": {
         "@electron-toolkit/preload": "^2.0.0",
-        "@electron-toolkit/utils": "^2.0.0",
-        "reflect-metadata": "^0.1.13"
+        "@electron-toolkit/utils": "^2.0.0"
     },
     "devDependencies": {
         "@electron-toolkit/eslint-config": "^1.0.1",
@@ -42,6 +41,7 @@
         "less": "^4.2.0",
         "log4js": "^6.9.1",
         "prettier": "^3.0.2",
+        "reflect-metadata": "^0.1.13",
         "ts-node": "^10.9.1",
         "typescript": "^5.1.6",
         "vite": "^4.4.9",

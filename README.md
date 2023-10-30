@@ -15,4 +15,4 @@ Visual Studio Code
 -   Prittier
 -   JS&TS Nighty
 -   Prittier
--   SCSS/SASS Formatter
+-   SCSS/SASS/LESS/CSS Formatter

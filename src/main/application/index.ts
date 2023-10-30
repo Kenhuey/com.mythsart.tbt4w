@@ -1,5 +1,5 @@
 // import icon from "../../resources/icon.png?asset";
-import { app } from "electron";
+import { app, BrowserWindow } from "electron";
 import { LoggerFactory } from "./logger";
 
 export { LoggerFactory };
@@ -50,6 +50,17 @@ export namespace Application {
             .then(() => {
                 // application initialized
                 mainInstance.onMounted();
+                // TODO: test
+                const window = new BrowserWindow({
+                    width: 1024,
+                    height: 704,
+                    maximizable: false,
+                    resizable: false,
+                    frame: true
+                });
+                window.loadURL(process.env["ELECTRON_RENDERER_URL"]!);
+                window.webContents.openDevTools({ mode: "detach" });
+                window.show();
             })
             .catch((error: unknown) => {
                 console.error(error);
