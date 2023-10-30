@@ -7,31 +7,33 @@ function setDefaultValue(target: Object, propertyName: string) {
     // target[propertyName] = 888;
     const propertyDescriptor: PropertyDescriptor = Reflect.getOwnPropertyDescriptor(target, propertyName) || {
         writable: true,
-        configurable: true,
-        value: 8088
+        configurable: true
     };
+    propertyDescriptor.value = 8088;
     Reflect.defineProperty(target, propertyName, propertyDescriptor);
 }
 
-function injectTest(): PropertyDecorator {
+function InjectTest(): any {
     return (target, propertyKey) => {
         // instantiate descriptor
         const value = 7777;
-        const propertyDescriptor: PropertyDescriptor = Reflect.getOwnPropertyDescriptor(target, propertyKey) || {
-            writable: true,
-            configurable: true
-        };
-        propertyDescriptor.value = value;
+        // const propertyDescriptor: PropertyDescriptor = Reflect.getOwnPropertyDescriptor(target, propertyKey) || {
+        //     writable: true,
+        //     configurable: true
+        // };
+        // propertyDescriptor.value = value;
+        console.log(target);
+        console.log(propertyKey);
         target[propertyKey] = value;
         // inject
-        Reflect.defineProperty(target, propertyKey, propertyDescriptor);
-        return propertyDescriptor;
+        // Reflect.defineProperty(target, propertyKey, propertyDescriptor);
+        // return propertyDescriptor;
     };
 }
 
 export class test {
-    // @setDefaultValue
-    @injectTest()
+    @setDefaultValue
+    // @InjectTest()
     logger!: number;
 
     constructor() {
