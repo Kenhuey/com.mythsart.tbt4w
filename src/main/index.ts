@@ -48,7 +48,7 @@ function injectTest(): PropertyDecorator {
 
 export class test {
     @injectTest()
-    logger: number;
+    logger!: number;
 
     constructor() {
         console.log(`test - ${this.logger}`);
