@@ -18,6 +18,6 @@ export default defineConfig({
                 "@renderer": resolve("src/renderer/src")
             }
         },
-        plugins: [..._plugins, vue(), vueJsx()]
+        plugins: [vue(), vueJsx()]
     }
 });
