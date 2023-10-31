@@ -144,14 +144,49 @@ export namespace Window {
                 const ipcEvent = new EventConstant.Default.WindowAction();
                 const defaultParams = ipcEvent.defaultParamsMainToRenderer;
                 this.rawBroswerWindow.on("minimize", () => {
-                    const params = "close" as typeof defaultParams;
+                    const params = "minimize" as typeof defaultParams;
                     this.rawBroswerWindow.webContents.send(ipcEvent.channel, params);
                     this.logActionDebug("Window minimize.");
+                });
+                this.rawBroswerWindow.on("maximize", () => {
+                    const params = "maximize" as typeof defaultParams;
+                    this.rawBroswerWindow.webContents.send(ipcEvent.channel, params);
+                    this.logActionDebug("Window maximize.");
+                });
+                this.rawBroswerWindow.on("unmaximize", () => {
+                    const params = "unmaximize" as typeof defaultParams;
+                    this.rawBroswerWindow.webContents.send(ipcEvent.channel, params);
+                    this.logActionDebug("Window unmaximize.");
+                });
+                this.rawBroswerWindow.on("restore", () => {
+                    const params = "restore" as typeof defaultParams;
+                    this.rawBroswerWindow.webContents.send(ipcEvent.channel, params);
+                    this.logActionDebug("Window restore.");
+                });
+                this.rawBroswerWindow.on("blur", () => {
+                    const params = "blur" as typeof defaultParams;
+                    this.rawBroswerWindow.webContents.send(ipcEvent.channel, params);
+                    this.logActionDebug("Window blur.");
                 });
                 this.rawBroswerWindow.on("close", () => {
                     const params = "close" as typeof defaultParams;
                     this.rawBroswerWindow.webContents.send(ipcEvent.channel, params);
                     this.logActionDebug("Window close.");
+                });
+                this.rawBroswerWindow.on("hide", () => {
+                    const params = "hide" as typeof defaultParams;
+                    this.rawBroswerWindow.webContents.send(ipcEvent.channel, params);
+                    this.logActionDebug("Window hide.");
+                });
+                this.rawBroswerWindow.on("minimize", () => {
+                    const params = "close" as typeof defaultParams;
+                    this.rawBroswerWindow.webContents.send(ipcEvent.channel, params);
+                    this.logActionDebug("Window minimize.");
+                });
+                this.rawBroswerWindow.on("show", () => {
+                    const params = "show" as typeof defaultParams;
+                    this.rawBroswerWindow.webContents.send(ipcEvent.channel, params);
+                    this.logActionDebug("Window show.");
                 });
             }
             // done
