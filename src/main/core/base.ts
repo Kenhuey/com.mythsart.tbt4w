@@ -1,6 +1,7 @@
 import { LoggerFactory } from "./application/logger";
 import { BrowserWindow, BrowserWindowConstructorOptions, IpcMainEvent, IpcMainInvokeEvent, IpcRendererEvent } from "electron";
 import { Window } from "./window";
+import { EventConstant } from "../constant/event";
 
 /*
  * Base core
@@ -66,9 +67,14 @@ export namespace Base {
             }
 
             /*
-             * Current event prefix name
+             * Current event prefix channel
              */
-            public abstract get eventNamePrefix(): string;
+            public abstract get eventDefine(): EventConstant.BaseEventDefine;
+
+            /*
+             * Current event prefix channel
+             */
+            public abstract get eventChannelPrefix(): string;
 
             /*
              * Receive event

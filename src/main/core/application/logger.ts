@@ -1,4 +1,5 @@
 import Log4js from "log4js";
+import { is } from "@electron-toolkit/utils";
 
 /*
  * Logger
@@ -129,7 +130,7 @@ export namespace LoggerFactory {
                 categories: {
                     default: {
                         appenders: ["raw"],
-                        level: "ALL",
+                        level: is.dev ? "ALL" : "INFO",
                         enableCallStack: true
                     }
                 }

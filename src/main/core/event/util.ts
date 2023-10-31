@@ -15,7 +15,7 @@ export namespace Util {
         /*
          * All registered IpcMain events
          */
-        private static readonly registeredIpcMainEvents: Array<Base.Application.BaseEventInstance> = [] as const;
+        private static readonly registeredIpcMainEvents: Array<Base.Application.BaseEventInstance> = [];
 
         /*
          * Register event class decorator

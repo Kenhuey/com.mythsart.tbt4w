@@ -2,8 +2,8 @@ import { shell, BrowserWindow, BrowserWindowConstructorOptions, IpcMainEvent, We
 import { is, optimizer } from "@electron-toolkit/utils";
 import { Base } from "./base";
 import Path from "path";
-import { DefaultEvent, Event } from "./event";
 import { EventConstant } from "../constant/event";
+import { WindowNameConstance } from "../constant/window";
 
 /*
  * Window core
@@ -47,6 +47,11 @@ export namespace Window {
         private readonly browserWindowConstructorOptions: BrowserWindowConstructorOptions;
 
         /*
+         * Build options
+         */
+        private readonly browserWindowbuildOptions: BuildOptions;
+
+        /*
          * Raw broswer window instance
          */
         private readonly _rawBroswerWindow: BrowserWindow;
@@ -79,6 +84,7 @@ export namespace Window {
             // construct initialize
             super("window_instance");
             this.browserWindowConstructorOptions = constructOptions;
+            this.browserWindowbuildOptions = buildOptions;
             // build constructor options
             {
                 // avoid blank view flashing
@@ -87,19 +93,19 @@ export namespace Window {
                 if (!this.browserWindowConstructorOptions.webPreferences) {
                     this.browserWindowConstructorOptions.webPreferences = {};
                 }
-                if (!this.browserWindowConstructorOptions.webPreferences?.nodeIntegration) {
-                    this.browserWindowConstructorOptions.webPreferences.nodeIntegration = true;
-                }
+                // if (!this.browserWindowConstructorOptions.webPreferences?.nodeIntegration) {
+                //     this.browserWindowConstructorOptions.webPreferences.nodeIntegration = true;
+                // }
                 if (!this.browserWindowConstructorOptions.webPreferences?.contextIsolation) {
                     this.browserWindowConstructorOptions.webPreferences.contextIsolation = true;
                 }
-                if (!this.browserWindowConstructorOptions.transparent) {
-                    this.browserWindowConstructorOptions.transparent = true;
-                }
+                // if (!this.browserWindowConstructorOptions.transparent) {
+                //     this.browserWindowConstructorOptions.transparent = true;
+                // }
                 // avoid cors origins
-                if (!this.browserWindowConstructorOptions.webPreferences.webSecurity) {
-                    this.browserWindowConstructorOptions.webPreferences.webSecurity = false;
-                }
+                // if (!this.browserWindowConstructorOptions.webPreferences.webSecurity) {
+                //     this.browserWindowConstructorOptions.webPreferences.webSecurity = false;
+                // }
             }
             // build window
             {
@@ -127,21 +133,33 @@ export namespace Window {
                     browserWindow.loadURL(this._windowPath);
                 } else {
                     this._windowPath = Path.join(__dirname, "../renderer/index.html") + `#${buildOptions.windowName}`;
-                    browserWindow.loadFile(this._windowPath);
+                    browserWindow.loadURL(this._windowPath);
                 }
                 this._rawBroswerWindow = browserWindow;
                 // dev tools short cut
-                optimizer.watchWindowShortcuts(this._rawBroswerWindow);
+                optimizer.watchWindowShortcuts(this.rawBroswerWindow);
             }
+            // default window action events
             {
-                this._rawBroswerWindow.on("close", () => {
-                    const ipcEvent = Event.getEvent(DefaultEvent.Close);
-                    const params: typeof EventConstant.Default.Close.params.paramsMainToRenderer = {};
-                    this._rawBroswerWindow.webContents.send(ipcEvent.eventNamePrefix, params);
+                const ipcEvent = new EventConstant.Default.WindowAction();
+                const defaultParams = ipcEvent.defaultParamsMainToRenderer;
+                this.rawBroswerWindow.on("minimize", () => {
+                    const params = "close" as typeof defaultParams;
+                    this.rawBroswerWindow.webContents.send(ipcEvent.channel, params);
+                    this.logActionDebug("Window minimize.");
+                });
+                this.rawBroswerWindow.on("close", () => {
+                    const params = "close" as typeof defaultParams;
+                    this.rawBroswerWindow.webContents.send(ipcEvent.channel, params);
+                    this.logActionDebug("Window close.");
                 });
             }
             // done
             this.logger.debug(`Window builded: id = "${this.rawBroswerWindow.id}", name = "${buildOptions.windowName}", path = "${this._windowPath}".`);
+        }
+
+        private logActionDebug(message: string): void {
+            this.logger.debug(`(id = "${this.rawBroswerWindow.id}", name = "${this.browserWindowbuildOptions.windowName}") Action: ${message}`);
         }
     }
 
@@ -154,7 +172,7 @@ export namespace Window {
          */
         export class MainWindowPreset extends Base.Application.BaseWindowPreset {
             public get windowName(): string {
-                return "main-window";
+                return WindowNameConstance.MainWindow;
             }
 
             public get constructOptions(): Electron.BrowserWindowConstructorOptions {

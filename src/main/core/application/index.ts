@@ -4,6 +4,7 @@ import { LoggerFactory } from "./logger";
 import { Event } from "../event";
 import { Base } from "../base";
 import { Window } from "../window";
+import { is } from "@electron-toolkit/utils";
 
 export { LoggerFactory };
 
@@ -11,6 +12,11 @@ export { LoggerFactory };
  * Entries of application
  */
 export namespace Application {
+    /*
+     * Application logger
+     */
+    const logger: LoggerFactory.LoggerType = LoggerFactory.Logger.getLoggerRaw("application");
+
     /*
      * Base interface of application entry
      */
@@ -33,17 +39,22 @@ export namespace Application {
      * Register all IpcMain events
      */
     function registerIpcMainEvents(): void {
-        const logger = LoggerFactory.Logger.getLoggerRaw("ipc_event_register");
+        const loggerMessagePrefix: string = "(IpcMain)";
         const events: Array<Base.Application.BaseEventInstance> = Event.getAllRegisteredEventsClone();
         // register
         for (const event of events) {
             // receive
-            ipcMain.handle(event.eventNamePrefix, (_event, params) => {
+            ipcMain.on(event.eventChannelPrefix, (_event, params) => {
+                logger.info(`${loggerMessagePrefix} received params, channel = "${event.eventChannelPrefix}", params = "${JSON.stringify(params)}".`);
                 event.receive(_event, params);
             });
             // done register one event
-            logger.info(`Event registed, prefix = "${event.eventNamePrefix}"`);
+            logger.info(`${loggerMessagePrefix} receiver event registed, channel_prefix = "${event.eventChannelPrefix}".`);
         }
+    }
+
+    function logApplicationInformation(): void {
+        logger.info(`Debug = "${is.dev}".`);
     }
 
     /*
@@ -52,6 +63,7 @@ export namespace Application {
     export function Main<T extends { new (): Entry }>(constructor: T): void {
         // check instance is singleton
         if (!app.requestSingleInstanceLock()) {
+            logger.info("Application is already running.");
             applicationForceQuit();
         }
         // create main instance
@@ -61,12 +73,17 @@ export namespace Application {
             .then(() => {
                 // application initialized
                 mainInstance.onMounted();
+                logApplicationInformation();
                 // register IpcMain events
                 registerIpcMainEvents();
-                // TODO: persistence
-                // TODO: configure
+                // multiple application
+                app.on("second-instance", () => {
+                    // TODO: 单例启动提示
+                });
                 // application active
                 {
+                    // TODO: persistence
+                    // TODO: configure
                     // TODO: 走程序初始化完毕业务流程
                     Window.Generator.build(Window.Preset.MainWindowPreset);
                 }
