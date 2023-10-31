@@ -1,5 +1,5 @@
 /*
- * Reflect Metadata types
+ * Reflect metadata types
  */
 export namespace MetadataType {
     /*

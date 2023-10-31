@@ -1,6 +1,8 @@
 // import icon from "../../resources/icon.png?asset";
-import { app, BrowserWindow } from "electron";
+import { app, ipcMain } from "electron";
 import { LoggerFactory } from "./logger";
+import { Event } from "../event";
+import { Base } from "../base";
 
 export { LoggerFactory };
 
@@ -9,22 +11,13 @@ export { LoggerFactory };
  */
 export namespace Application {
     /*
-     * Base class of application entry
+     * Base interface of application entry
      */
-    export abstract class Entry {
-        /*
-         * Pre-initialize
-         */
-        public constructor() {
-            return;
-        }
-
+    export interface Entry {
         /*
          * Run after application mounted
          */
-        public onMounted(): void {
-            return;
-        }
+        onMounted(): void;
     }
 
     /*
@@ -33,6 +26,15 @@ export namespace Application {
     function applicationForceQuit(): void {
         app.quit();
         process.exit(-1);
+    }
+
+    function registerIpcMainEvents(): void {
+        const logger = LoggerFactory.Logger.getLoggerRaw("ipc_event_register");
+        const events: Array<Base.Application.BaseEventInstance> = Event.getAllRegisteredEventsClone();
+        for (const event of events) {
+            logger.debug(`Event registed, prefix = "${event.eventNamePrefix}"`);
+            // TODO: handle
+        }
     }
 
     /*
@@ -50,17 +52,12 @@ export namespace Application {
             .then(() => {
                 // application initialized
                 mainInstance.onMounted();
-                // TODO: test
-                const window = new BrowserWindow({
-                    width: 1024,
-                    height: 704,
-                    maximizable: false,
-                    resizable: false,
-                    frame: true
+                // register IpcMain events
+                registerIpcMainEvents();
+                // application active
+                app.on("activate", () => {
+                    // TODO: 初始化、创建窗体（做事件注册的反射以及静态类自动注入，事件做成装饰器获取，窗体也做成预设实体类）、窗口池 MAP
                 });
-                window.loadURL(process.env["ELECTRON_RENDERER_URL"]!);
-                window.webContents.openDevTools({ mode: "detach" });
-                window.show();
             })
             .catch((error: unknown) => {
                 console.error(error);
