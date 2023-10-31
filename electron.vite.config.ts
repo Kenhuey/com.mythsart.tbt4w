@@ -1,6 +1,7 @@
 import { resolve } from "path";
 import { defineConfig, externalizeDepsPlugin, bytecodePlugin, swcPlugin } from "electron-vite";
 import vue from "@vitejs/plugin-vue";
+import vueJsx from "@vitejs/plugin-vue-jsx";
 
 const _plugins = [externalizeDepsPlugin(), bytecodePlugin(), swcPlugin()];
 
@@ -17,6 +18,6 @@ export default defineConfig({
                 "@renderer": resolve("src/renderer/src")
             }
         },
-        plugins: [..._plugins, vue()]
+        plugins: [..._plugins, vue(), vueJsx()]
     }
 });

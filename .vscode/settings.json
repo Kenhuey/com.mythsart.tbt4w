@@ -8,5 +8,6 @@
     "[json]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "prettier.endOfLine": "auto"
+    "prettier.endOfLine": "auto",
+    "typescript.validate.enable": true
 }
