@@ -121,7 +121,8 @@ export namespace LoggerFactory {
                         type: "console",
                         layout: {
                             type: "pattern",
-                            pattern: "[%d{yyyy-MM-dd hh:mm:ss}] [%p] <%h_%z> %c - %m"
+                            // pattern: "[%d{yyyy-MM-dd hh:mm:ss}] [%p] <%h_%z> %c - %m"
+                            pattern: "%d{yyyy-MM-dd hh:mm:ss} <%z> [%p] %c - %m"
                         }
                     }
                 },

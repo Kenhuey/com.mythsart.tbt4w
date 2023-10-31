@@ -1,5 +1,5 @@
 import { LoggerFactory } from "./application/logger";
-import { BrowserWindowConstructorOptions, IpcMainEvent, IpcRendererEvent } from "electron";
+import { BrowserWindow, BrowserWindowConstructorOptions, IpcMainEvent, IpcMainInvokeEvent, IpcRendererEvent } from "electron";
 import { Window } from "./window";
 
 /*
@@ -71,23 +71,17 @@ export namespace Base {
             public abstract get eventNamePrefix(): string;
 
             /*
-             * Send event
-             */
-            public get send(): (params?: any) => void | Promise<void> {
-                return () => {};
-            }
-
-            /*
              * Receive event
              */
-            public get receive(): (event: IpcMainEvent, params?: any) => void | Promise<void> {
-                return () => {};
-            }
-            /*
-             * Reply event
-             */
-            public get replay(): (event: IpcRendererEvent, params?: any) => void | Promise<void> {
-                return () => {};
+            public receive(event: IpcMainEvent | IpcMainInvokeEvent, params?: any): () => void | Promise<void> {
+                return () => {
+                    try {
+                        (event as IpcMainEvent).returnValue = null;
+                        params;
+                    } catch (_) {
+                        _;
+                    }
+                };
             }
         }
     }

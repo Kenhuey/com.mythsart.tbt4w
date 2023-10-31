@@ -1,7 +1,9 @@
-import { shell, BrowserWindow, BrowserWindowConstructorOptions, IpcMainEvent, WebContents } from "electron";
-import { is } from "@electron-toolkit/utils";
+import { shell, BrowserWindow, BrowserWindowConstructorOptions, IpcMainEvent, WebContents, IpcMainInvokeEvent } from "electron";
+import { is, optimizer } from "@electron-toolkit/utils";
 import { Base } from "./base";
 import Path from "path";
+import { DefaultEvent, Event } from "./event";
+import { EventConstant } from "../constant/event";
 
 /*
  * Window core
@@ -30,7 +32,7 @@ export namespace Window {
         /*
          * Get browser window by event
          */
-        export function getOwnerBrowserWindowByIpcMainEvent(event: IpcMainEvent): BrowserWindow {
+        export function getOwnerBrowserWindowByIpcMainEvent(event: IpcMainEvent | IpcMainInvokeEvent): BrowserWindow {
             return (event.sender as Sender).getOwnerBrowserWindow()!;
         }
     }
@@ -128,6 +130,15 @@ export namespace Window {
                     browserWindow.loadFile(this._windowPath);
                 }
                 this._rawBroswerWindow = browserWindow;
+                // dev tools short cut
+                optimizer.watchWindowShortcuts(this._rawBroswerWindow);
+            }
+            {
+                this._rawBroswerWindow.on("close", () => {
+                    const ipcEvent = Event.getEvent(DefaultEvent.Close);
+                    const params: typeof EventConstant.Default.Close.params.paramsMainToRenderer = {};
+                    this._rawBroswerWindow.webContents.send(ipcEvent.eventNamePrefix, params);
+                });
             }
             // done
             this.logger.debug(`Window builded: id = "${this.rawBroswerWindow.id}", name = "${buildOptions.windowName}", path = "${this._windowPath}".`);
@@ -150,7 +161,7 @@ export namespace Window {
                 return {
                     width: 1024,
                     height: 704,
-                    frame: false
+                    frame: true
                 };
             }
 

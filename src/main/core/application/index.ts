@@ -3,6 +3,7 @@ import { app, ipcMain } from "electron";
 import { LoggerFactory } from "./logger";
 import { Event } from "../event";
 import { Base } from "../base";
+import { Window } from "../window";
 
 export { LoggerFactory };
 
@@ -28,12 +29,20 @@ export namespace Application {
         process.exit(-1);
     }
 
+    /*
+     * Register all IpcMain events
+     */
     function registerIpcMainEvents(): void {
         const logger = LoggerFactory.Logger.getLoggerRaw("ipc_event_register");
         const events: Array<Base.Application.BaseEventInstance> = Event.getAllRegisteredEventsClone();
+        // register
         for (const event of events) {
-            logger.debug(`Event registed, prefix = "${event.eventNamePrefix}"`);
-            // TODO: handle
+            // receive
+            ipcMain.handle(event.eventNamePrefix, (_event, params) => {
+                event.receive(_event, params);
+            });
+            // done register one event
+            logger.info(`Event registed, prefix = "${event.eventNamePrefix}"`);
         }
     }
 
@@ -54,10 +63,13 @@ export namespace Application {
                 mainInstance.onMounted();
                 // register IpcMain events
                 registerIpcMainEvents();
+                // TODO: persistence
+                // TODO: configure
                 // application active
-                app.on("activate", () => {
-                    // TODO: 初始化、创建窗体（做事件注册的反射以及静态类自动注入，事件做成装饰器获取，窗体也做成预设实体类）、窗口池 MAP
-                });
+                {
+                    // TODO: 走程序初始化完毕业务流程
+                    Window.Generator.build(Window.Preset.MainWindowPreset);
+                }
             })
             .catch((error: unknown) => {
                 console.error(error);

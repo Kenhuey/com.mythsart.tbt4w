@@ -11,10 +11,10 @@ class Main extends Base.Application.BaseObject implements Application.Entry {
      * Pre-initialize
      */
     constructor() {
-        super("main");
+        super("entrance");
     }
 
     public onMounted(): void {
-        this.logger.info("Application mounted.");
+        this.logger.info("Mounted.");
     }
 }

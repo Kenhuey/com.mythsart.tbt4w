@@ -4,21 +4,30 @@
  */
 export namespace EventConstant {
     export interface EventParamsDefine {
-        paramsMainToRenderer?: unknown;
         paramsRendererToMain?: unknown;
+        paramsMainToRenderer?: unknown;
     }
 
+    // TODO: 尝试用抽象类代替 例如参数就用 get，里面再封装个父类方法用于获取 type of 参数的返回类型和接收类型
     export interface EventDefine {
         name: string;
         params: EventParamsDefine;
     }
 
+    /*
+     * Window default events
+     */
     export namespace Default {
-        export const Show: EventDefine = {
-            name: "default-window-show",
+        /*
+         * When window action
+         */
+        export const Action: EventDefine = {
+            // event name
+            name: "default-window-action ",
+            // default value
             params: {
-                paramsMainToRenderer: undefined,
-                paramsRendererToMain: undefined
+                paramsRendererToMain: undefined,
+                paramsMainToRenderer: undefined
             }
         };
     }
