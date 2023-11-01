@@ -77,7 +77,7 @@ export namespace LoggerFactory {
         private static bindConsoleLogger(callback: Function, level: "INFO" | "WARN" | "ERROR" | "TRACE" | "DEBUG"): (message: any) => void {
             return (message: any, name: string = Logger.consoleLoggerName) => {
                 const date: Date = new Date();
-                callback.call(console, `[${date.toLocaleDateString()}_${date.toLocaleTimeString()}] [${level}] ${name} - ${message}`);
+                callback.call(console, `[${date.toLocaleDateString()} ${date.toLocaleTimeString()}] [${level}] ${name} - ${message}`);
             };
         }
 

@@ -105,7 +105,7 @@ export namespace LoggerFactory {
                         layout: {
                             type: "pattern",
                             // pattern: "[%d{yyyy-MM-dd hh:mm:ss}] [%p] <%h_%z> %c - %m"
-                            pattern: "[%d{yyyy-MM-dd_hh:mm:ss}] <%z> [%p] %c - %m"
+                            pattern: "[%d{yyyy-MM-dd hh:mm:ss}] <%z> [%p] %c - %m"
                         }
                     }
                 },
