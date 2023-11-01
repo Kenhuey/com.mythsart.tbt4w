@@ -15,12 +15,12 @@ export namespace Base {
             /*
              * Default logger
              */
-            private readonly _logger: LoggerFactory.LoggerType;
+            private readonly _logger: LoggerFactory.Logger;
 
             /*
              * Default logger getter
              */
-            protected get logger(): LoggerFactory.LoggerType {
+            protected get logger(): LoggerFactory.Logger {
                 return this._logger;
             }
 
@@ -28,7 +28,7 @@ export namespace Base {
                 // logger initialize
                 LoggerFactory.Logger.initialize();
                 // set logger
-                this._logger = LoggerFactory.Logger.getLoggerRaw(loggerName);
+                this._logger = LoggerFactory.Logger.getLogger(loggerName);
             }
         }
     }

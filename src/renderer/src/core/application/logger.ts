@@ -6,11 +6,18 @@ export namespace LoggerFactory {
      * Factory class
      */
     export class Logger {
+        /*
+         * Logger name
+         */
         private readonly _loggerName: string;
 
+        /*
+         * Logger name getter
+         */
         public get loggerName(): string {
             return this._loggerName;
         }
+
         /*
          * Constructor
          */
@@ -23,12 +30,27 @@ export namespace LoggerFactory {
          */
         private static loggerMap: Map<string, Logger> = new Map([]);
 
+        private static _consoleLogger: Logger | undefined = undefined;
+
+        /*
+         * Get console(default) logger
+         */
+        public static get consoleLogger(): Logger {
+            if (Logger._consoleLogger === undefined) {
+                Logger.initialize();
+            }
+            return Logger._consoleLogger!;
+        }
+
         /*
          * Get logger instance by name
          */
-        public static getLogger(loggerName: string): Logger {
+        public static getLogger(loggerName?: string): Logger {
             // check logger is initialized
             Logger.consoleLogger;
+            if (!loggerName) {
+                return Logger.consoleLogger;
+            }
             // get logger
             if (!Logger.loggerMap.get(loggerName)) {
                 // create logger
@@ -39,24 +61,44 @@ export namespace LoggerFactory {
         }
 
         /*
-         * Get logger raw by name
+         * Logger
          */
-        public static getLoggerRaw(loggerName?: string): Logger {
-            if (!loggerName) {
-                return Logger.consoleLogger;
-            }
-            return Logger.getLogger(loggerName).Logger;
-        }
-        // TODO: 重新实现一个 logger， log4js 在浏览器（特别是 vite 里面）用不了半点 又研究了一早上 草泥马的
+        private static _logger: Logger | undefined = undefined;
 
         /*
-         * Get console(default) logger
+         * Logger getter
          */
-        public static get consoleLogger(): LoggerType {
-            if (Logger._consoleLogger === undefined) {
-                Logger.initialize();
-            }
-            return Logger._consoleLogger!;
+        private static get logger(): Logger {
+            return Logger._logger!;
+        }
+
+        private static readonly consoleLoggerName: string = "console" as const;
+
+        private static bindConsoleLogger(callback: Function, level: "INFO" | "WARN" | "ERROR" | "TRACE" | "DEBUG"): (message: any) => void {
+            return (message: any, name: string = Logger.consoleLoggerName) => {
+                const date: Date = new Date();
+                callback.call(console, `[${date.toLocaleDateString()}_${date.toLocaleTimeString()}] [${level}] ${name} - ${message}`);
+            };
+        }
+
+        public info(message: string): void {
+            console.info(message, this.loggerName);
+        }
+
+        public warn(message: string): void {
+            console.warn(message, this.loggerName);
+        }
+
+        public error(message: string): void {
+            console.error(message, this.loggerName);
+        }
+
+        public trace(message: string): void {
+            console.trace(message, this.loggerName);
+        }
+
+        public debug(message: string): void {
+            console.debug(message, this.loggerName);
         }
 
         /*
@@ -66,35 +108,15 @@ export namespace LoggerFactory {
             if (LoggerFactory.Logger._consoleLogger) {
                 return LoggerFactory;
             }
-            // configure
-            // Log4js.configure({
-            //     appenders: {
-            //         raw: {
-            //             type: "console",
-            //             layout: {
-            //                 type: "pattern",
-            //                 pattern: "%d{yyyy-MM-dd hh:mm:ss} [%p] %c - %m"
-            //             }
-            //         }
-            //     },
-            //     categories: {
-            //         default: {
-            //             appenders: ["raw"],
-            //             level: "ALL"
-            //             // enableCallStack: true
-            //         }
-            //     }
-            // });
-            // replace default console output levels
-            Logger._consoleLogger = Log4js.getLogger("console");
-            console.log = Logger.consoleLogger.info.bind(Logger.consoleLogger);
-            console.info = Logger.consoleLogger.info.bind(Logger.consoleLogger);
-            console.warn = Logger.consoleLogger.warn.bind(Logger.consoleLogger);
-            console.error = Logger.consoleLogger.error.bind(Logger.consoleLogger);
-            console.trace = Logger.consoleLogger.trace.bind(Logger.consoleLogger);
-            console.debug = Logger.consoleLogger.debug.bind(Logger.consoleLogger);
+            Logger._consoleLogger = new Logger(Logger.consoleLoggerName);
+            console.log = Logger.bindConsoleLogger(console.log, "INFO");
+            console.info = Logger.bindConsoleLogger(console.info, "INFO");
+            console.warn = Logger.bindConsoleLogger(console.warn, "WARN");
+            console.error = Logger.bindConsoleLogger(console.error, "ERROR");
+            console.trace = Logger.bindConsoleLogger(console.trace, "TRACE");
+            console.debug = Logger.bindConsoleLogger(console.debug, "DEBUG");
             // done
-            this._logger = LoggerFactory.Logger.getLoggerRaw("logger");
+            this._logger = LoggerFactory.Logger.getLogger("logger");
             this.logger && this.logger.debug("Logger initialized.");
             return LoggerFactory;
         }
