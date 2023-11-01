@@ -78,7 +78,7 @@ export namespace Application {
                 registerIpcMainEvents();
                 // multiple application
                 app.on("second-instance", () => {
-                    // TODO: 单例启动提示
+                    // TODO: 单例启动提示 notif..
                 });
                 // application active
                 {

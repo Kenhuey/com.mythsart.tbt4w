@@ -4,15 +4,14 @@ Tieba Tools For Windows - Refactor
 
 ## Desc.
 
-An unofficial user utilities manager of Baidu-Tieba
+An unofficial user utilities manager of Baidu-Tieba.
 
 ## Recommended IDE & Plugins
 
 Visual Studio Code
 
--   Volar
--   ESLint
--   Prittier
--   JS&TS Nighty
--   Prittier
+-   Volar(Not Vetur)
+-   ESLint(Not TSLint)
+-   Prettier
+-   Javascript&Typescript Support
 -   SCSS/SASS/LESS/CSS Formatter

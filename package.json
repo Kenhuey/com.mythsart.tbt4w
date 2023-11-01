@@ -24,6 +24,7 @@
         "@electron-toolkit/utils": "^2.0.0"
     },
     "devDependencies": {
+        "@babel/plugin-proposal-decorators": "^7.23.2",
         "@electron-toolkit/eslint-config": "^1.0.1",
         "@electron-toolkit/eslint-config-ts": "^1.0.0",
         "@electron-toolkit/tsconfig": "^1.0.1",

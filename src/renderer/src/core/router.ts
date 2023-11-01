@@ -23,7 +23,6 @@ export namespace Router {
         const windowRecord: Base.Application.WindowRouteRecord = new constructor();
         routes.push(windowRecord.raw);
         logger.info(`${windowRecord.raw.name as string}`);
-        // TODO: 这B玩意儿装饰器用了之后没被调用，有bug
     }
 
     /*

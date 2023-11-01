@@ -9,7 +9,13 @@ export default defineComponent({
                 <RouterView
                     v-slots={{
                         default: ({ Component }: { Component: VNode }) => {
-                            return <KeepAlive>{{ Component }}</KeepAlive>;
+                            return (
+                                <KeepAlive>
+                                    {() => {
+                                        Component;
+                                    }}
+                                </KeepAlive>
+                            );
                         }
                     }}
                 ></RouterView>

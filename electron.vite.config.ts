@@ -18,6 +18,12 @@ export default defineConfig({
                 "@renderer": resolve("src/renderer/src")
             }
         },
-        plugins: [..._plugins, vue(), vueJsx()]
+        plugins: [
+            ..._plugins,
+            vue(),
+            vueJsx({
+                babelPlugins: [["@babel/plugin-proposal-decorators", { legacy: true }]]
+            })
+        ]
     }
 });
