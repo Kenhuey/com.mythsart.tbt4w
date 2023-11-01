@@ -6,14 +6,13 @@ export default defineComponent({
     setup: () => {
         return () => (
             <div class="window">
-                asd
-                {/* <RouterView
+                <RouterView
                     v-slots={{
                         default: ({ Component }: { Component: VNode }) => {
                             return <KeepAlive>{{ Component }}</KeepAlive>;
                         }
                     }}
-                ></RouterView> */}
+                ></RouterView>
             </div>
         );
     }

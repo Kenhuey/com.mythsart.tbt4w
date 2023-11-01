@@ -1,8 +1,28 @@
-import { defineComponent } from "vue";
+import { WindowNameConstance } from "../../../main/constant/window";
+import { Base } from "@renderer/core/base";
+import { Router } from "@renderer/core/router";
+import { DefineComponent, defineComponent } from "vue";
+import { RouteRecordRaw } from "vue-router";
 
-// TODO: 装饰器自动注册 window
-export default defineComponent({
-    setup: () => {
-        return () => <div>Main Window</div>;
+/*
+ * Main window
+ */
+@Router.Window
+export default class MainWindow extends Base.Application.WindowRouteRecord {
+    public get raw(): RouteRecordRaw {
+        return {
+            path: `/${WindowNameConstance.MainWindow}`,
+            name: WindowNameConstance.MainWindow,
+            component: this.getComponent(),
+            children: []
+        };
     }
-});
+
+    public getComponent(): DefineComponent<{}, {}, any> {
+        return defineComponent({
+            setup: () => {
+                return () => <div>Main Window</div>;
+            }
+        });
+    }
+}
