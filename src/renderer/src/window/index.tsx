@@ -6,19 +6,13 @@ export default defineComponent({
     setup: () => {
         return () => (
             <div class="window">
-                <RouterView
-                    v-slots={{
-                        default: ({ Component }: { Component: VNode }) => {
-                            return (
-                                <KeepAlive>
-                                    {() => {
-                                        Component;
-                                    }}
-                                </KeepAlive>
-                            );
-                        }
-                    }}
-                ></RouterView>
+                <div class="router-view">
+                    <RouterView
+                        v-slots={{
+                            default: ({ Component }: { Component: VNode }) => <KeepAlive>{Component}</KeepAlive>
+                        }}
+                    />
+                </div>
             </div>
         );
     }

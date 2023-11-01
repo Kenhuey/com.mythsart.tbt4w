@@ -141,7 +141,7 @@ export namespace Window {
             }
             // default window action events
             {
-                const ipcEvent = new EventConstant.Default.WindowAction();
+                const ipcEvent = EventConstant.getEventDefine(EventConstant.Default.WindowAction);
                 const defaultParams = ipcEvent.defaultParamsMainToRenderer;
                 this.rawBroswerWindow.on("minimize", () => {
                     const params = "minimize" as typeof defaultParams;

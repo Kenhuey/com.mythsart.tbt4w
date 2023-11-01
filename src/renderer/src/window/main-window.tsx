@@ -1,8 +1,9 @@
-import { WindowNameConstance } from "../../../main/constant/window";
+import { WindowNameConstance } from "../../../main/constant/window"; // todo alias
 import { Base } from "@renderer/core/base";
 import { Router } from "@renderer/core/router";
 import { DefineComponent, defineComponent } from "vue";
 import { RouteRecordRaw } from "vue-router";
+import WindowFrame from "@renderer/window/component/window-frame";
 
 /*
  * Main window
@@ -21,7 +22,7 @@ export default class MainWindow extends Base.Application.WindowRouteRecord {
     public getComponent(): DefineComponent<{}, {}, any> {
         return defineComponent({
             setup: () => {
-                return () => <div>Main Window</div>;
+                return () => <WindowFrame />;
             }
         });
     }

@@ -3,9 +3,21 @@
         flex: 1;
         background: #fff;
         display: flex;
-        flex-direction: row;
-        justify-content: center;
+        flex-direction: column;
         border: 1px solid rgba(0, 0, 0, 0.2);
         box-sizing: border-box;
+    }
+
+    .content {
+        & {
+            flex: 1;
+        }
+    }
+}
+
+.control-bar {
+    & {
+        height: 32px;
+        background: #e1e1e1;
     }
 }
