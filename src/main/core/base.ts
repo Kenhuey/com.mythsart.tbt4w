@@ -1,5 +1,5 @@
 import { LoggerFactory } from "./application/logger";
-import { BrowserWindow, BrowserWindowConstructorOptions, IpcMainEvent, IpcMainInvokeEvent, IpcRendererEvent } from "electron";
+import { BrowserWindowConstructorOptions, IpcMainEvent, IpcMainInvokeEvent } from "electron";
 import { Window } from "./window";
 import { EventConstant } from "../constant/event";
 

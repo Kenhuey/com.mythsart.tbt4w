@@ -21,7 +21,7 @@ export namespace LoggerFactory {
     //             writable: true,
     //             configurable: true
     //         };
-    //         propertyDescriptor.value = value; // TODO: reflect not work, bug of electron-vite
+    //         propertyDescriptor.value = value; // TODO: reflect not work, bug of electron-vite, maybe swc plugin issued
     //         // target[propertyKey] = value;
     //         // inject
     //         Reflect.defineProperty(target, propertyKey, propertyDescriptor);
@@ -119,7 +119,7 @@ export namespace LoggerFactory {
             Log4js.configure({
                 appenders: {
                     raw: {
-                        type: "console",
+                        type: "stdout",
                         layout: {
                             type: "pattern",
                             // pattern: "[%d{yyyy-MM-dd hh:mm:ss}] [%p] <%h_%z> %c - %m"

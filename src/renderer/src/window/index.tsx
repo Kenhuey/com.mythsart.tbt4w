@@ -1,7 +1,20 @@
-import { defineComponent } from "vue";
+import { defineComponent, KeepAlive, VNode } from "vue";
+import { RouterView } from "vue-router";
+import "@renderer/style/common.scss";
 
 export default defineComponent({
-    render: () => {
-        return <div>Window</div>;
+    setup: () => {
+        return () => (
+            <div class="window">
+                asd
+                {/* <RouterView
+                    v-slots={{
+                        default: ({ Component }: { Component: VNode }) => {
+                            return <KeepAlive>{{ Component }}</KeepAlive>;
+                        }
+                    }}
+                ></RouterView> */}
+            </div>
+        );
     }
 });

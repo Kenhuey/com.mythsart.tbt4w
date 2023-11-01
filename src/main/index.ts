@@ -5,16 +5,16 @@ import { Base } from "./core/base";
  * Application entry instance
  */
 @Application.Main
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class Main extends Base.Application.BaseObject implements Application.Entry {
+export class Main extends Base.Application.BaseObject implements Application.Entry {
     /*
      * Pre-initialize
      */
     constructor() {
-        super("entrance");
+        super("main_entrance");
     }
 
     public onMounted(): void {
-        this.logger.info("Mounted.");
+        // done
+        this.logger.info("Main mounted.");
     }
 }

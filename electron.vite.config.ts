@@ -3,11 +3,11 @@ import { defineConfig, externalizeDepsPlugin, bytecodePlugin, swcPlugin } from "
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 
-const _plugins = [externalizeDepsPlugin(), bytecodePlugin(), swcPlugin()];
+const _plugins = [externalizeDepsPlugin(), bytecodePlugin()];
 
 export default defineConfig({
     main: {
-        plugins: [..._plugins]
+        plugins: [..._plugins, swcPlugin()]
     },
     preload: {
         plugins: [..._plugins]
@@ -18,6 +18,6 @@ export default defineConfig({
                 "@renderer": resolve("src/renderer/src")
             }
         },
-        plugins: [vue(), vueJsx()]
+        plugins: [..._plugins, vue(), vueJsx()]
     }
 });

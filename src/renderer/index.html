@@ -8,16 +8,25 @@
     </head>
 
     <body>
-        <div id="window-frame"></div>
-        <script type="module" src="/src/main.ts"></script>
+        <div id="application"></div>
+        <script type="module" src="/src/index.ts"></script>
     </body>
 
     <style>
         html,
-        body {
+        body,
+        #application {
             margin: 0px;
             padding: 0px;
-            /* background: #fff; */
+            user-select: none;
+            font-size: 12px;
+            line-height: 24px;
+            /* TODO: 字体*/
+            font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+            color: #1e1e1e;
+            /* background: rgba(0, 0, 0, 0.1); */
+            width: 100vw;
+            height: 100vh;
         }
     </style>
 </html>

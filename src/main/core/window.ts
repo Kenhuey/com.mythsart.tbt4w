@@ -169,6 +169,7 @@ export namespace Window {
                     this.logActionDebug("Window blur.");
                 });
                 this.rawBroswerWindow.on("close", () => {
+                    // TODO: delete from window pool
                     const params = "close" as typeof defaultParams;
                     this.rawBroswerWindow.webContents.send(ipcEvent.channel, params);
                     this.logActionDebug("Window close.");
@@ -178,10 +179,10 @@ export namespace Window {
                     this.rawBroswerWindow.webContents.send(ipcEvent.channel, params);
                     this.logActionDebug("Window hide.");
                 });
-                this.rawBroswerWindow.on("minimize", () => {
-                    const params = "close" as typeof defaultParams;
+                this.rawBroswerWindow.on("focus", () => {
+                    const params = "focus" as typeof defaultParams;
                     this.rawBroswerWindow.webContents.send(ipcEvent.channel, params);
-                    this.logActionDebug("Window minimize.");
+                    this.logActionDebug("Window focus.");
                 });
                 this.rawBroswerWindow.on("show", () => {
                     const params = "show" as typeof defaultParams;
@@ -211,10 +212,19 @@ export namespace Window {
             }
 
             public get constructOptions(): Electron.BrowserWindowConstructorOptions {
+                const size = {
+                    minWidth: 1024,
+                    minHeight: 704
+                };
                 return {
-                    width: 1024,
-                    height: 704,
-                    frame: true
+                    minWidth: size.minWidth,
+                    minHeight: size.minHeight,
+                    width: size.minWidth,
+                    height: size.minHeight,
+                    frame: false,
+                    webPreferences: {
+                        nodeIntegration: true
+                    }
                 };
             }
 
