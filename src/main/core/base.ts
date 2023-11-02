@@ -1,7 +1,7 @@
 import { LoggerFactory } from "./application/logger";
 import { BrowserWindowConstructorOptions, IpcMainEvent, IpcMainInvokeEvent } from "electron";
 import { Window } from "./window";
-import { EventConstant } from "../constant/event";
+import { IpcEventConstant } from "../constant/ipc-event";
 
 /**
  * Base core
@@ -56,20 +56,20 @@ export namespace Base {
         }
 
         /**
-         * An default window event instance
+         * An default ipc event instance
          */
-        export abstract class BaseEventInstance extends BaseObject {
+        export abstract class BaseEventIpcInstance extends BaseObject {
             /**
              * Default constructor
              */
             public constructor() {
-                super("ipc_event");
+                super("ipc_event_main");
             }
 
             /**
-             * Current event prefix channel
+             * Current event define
              */
-            public abstract get eventDefine(): EventConstant.BaseEventDefine;
+            public abstract get eventDefine(): IpcEventConstant.BaseEventDefine;
 
             /**
              * Current event prefix channel
@@ -79,11 +79,11 @@ export namespace Base {
             /**
              * Receive event
              */
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             public receive(event: IpcMainEvent | IpcMainInvokeEvent, params?: any): () => void | Promise<void> {
                 return () => {
                     try {
                         (event as IpcMainEvent).returnValue = null;
-                        params;
                     } catch (_) {
                         _;
                     }

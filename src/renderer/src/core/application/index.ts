@@ -16,6 +16,7 @@ export namespace Application {
      * Renderer application entry
      */
     export function Renderer<T extends { new (): Entry }>(constructor: T): void {
+        // application initialized
         const rendererInstance: Entry = new constructor();
         rendererInstance.onMounted();
     }

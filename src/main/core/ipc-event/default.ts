@@ -1,4 +1,4 @@
-import { EventConstant } from "../../constant/event";
+import { IpcEventConstant } from "../../constant/ipc-event";
 import { Base } from "../base";
 import { BrowserWindow, IpcMainEvent, IpcMainInvokeEvent } from "electron";
 import { Window } from "../window";
@@ -11,10 +11,10 @@ export namespace Default {
     /**
      * Window action
      */
-    @Util.Register.Event
-    export class WindowAction extends Base.Application.BaseEventInstance {
-        public get eventDefine(): EventConstant.BaseEventDefine {
-            return EventConstant.getEventDefine(EventConstant.Default.WindowAction);
+    @Util.Register.IpcEvent
+    export class WindowAction extends Base.Application.BaseEventIpcInstance {
+        public get eventDefine() {
+            return new IpcEventConstant.Default.WindowAction({ toMain: undefined, toRenderer: undefined });
         }
 
         public get eventChannelPrefix(): string {

@@ -2,7 +2,7 @@ import { shell, BrowserWindow, BrowserWindowConstructorOptions, IpcMainEvent, We
 import { is, optimizer } from "@electron-toolkit/utils";
 import { Base } from "./base";
 import Path from "path";
-import { EventConstant } from "../constant/event";
+import { IpcEventConstant } from "../constant/ipc-event";
 import { WindowNameConstance } from "../constant/window";
 import LogoIcon from "../../../resources/icon.png?asset";
 
@@ -24,7 +24,7 @@ export namespace Window {
     export namespace Util {
         /**
          * IpcMainEvent.WebContents declare
-         * Unsafe, not documented
+         * WARN: Unsafe, not documented
          */
         export interface Sender extends WebContents {
             getOwnerBrowserWindow(): BrowserWindow | null;
@@ -97,6 +97,9 @@ export namespace Window {
                 if (!this.browserWindowConstructorOptions.webPreferences?.contextIsolation) {
                     this.browserWindowConstructorOptions.webPreferences.contextIsolation = true;
                 }
+                if (!this.browserWindowConstructorOptions.webPreferences?.preload) {
+                    this.browserWindowConstructorOptions.webPreferences.preload = Path.join(__dirname, "../preload/index.js");
+                }
                 if (!this.browserWindowConstructorOptions.icon) {
                     this.browserWindowConstructorOptions.icon = nativeImage.createFromDataURL(LogoIcon);
                 }
@@ -135,53 +138,69 @@ export namespace Window {
             }
             // default window action events
             {
-                const ipcEvent = EventConstant.getEventDefine(EventConstant.Default.WindowAction);
-                const defaultParams = ipcEvent.defaultParamsMainToRenderer;
-                this.rawBroswerWindow.on("minimize", () => {
-                    const params = "minimize" as typeof defaultParams;
-                    this.rawBroswerWindow.webContents.send(ipcEvent.channel, params);
-                    this.logActionDebug("Window minimize.");
+                const minimize = "minimize";
+                this.rawBroswerWindow.on(minimize, () => {
+                    const event = new IpcEventConstant.Default.WindowAction({ toRenderer: minimize });
+                    const params = minimize;
+                    this.rawBroswerWindow.webContents.send(event.channel, params);
+                    this.logActionDebug(`Window "${minimize}".`);
                 });
-                this.rawBroswerWindow.on("maximize", () => {
-                    const params = "maximize" as typeof defaultParams;
-                    this.rawBroswerWindow.webContents.send(ipcEvent.channel, params);
-                    this.logActionDebug("Window maximize.");
+                const maximize = "maximize";
+                this.rawBroswerWindow.on(maximize, () => {
+                    const event = new IpcEventConstant.Default.WindowAction({ toRenderer: maximize });
+                    const params = maximize;
+                    this.rawBroswerWindow.webContents.send(event.channel, params);
+                    this.logActionDebug(`Window "${maximize}".`);
                 });
-                this.rawBroswerWindow.on("unmaximize", () => {
-                    const params = "unmaximize" as typeof defaultParams;
-                    this.rawBroswerWindow.webContents.send(ipcEvent.channel, params);
-                    this.logActionDebug("Window unmaximize.");
+                const unmaximize = "unmaximize";
+                this.rawBroswerWindow.on(unmaximize, () => {
+                    const event = new IpcEventConstant.Default.WindowAction({ toRenderer: unmaximize });
+                    const params = unmaximize;
+                    this.rawBroswerWindow.webContents.send(event.channel, params);
+                    this.logActionDebug(`Window "${unmaximize}".`);
                 });
-                this.rawBroswerWindow.on("restore", () => {
-                    const params = "restore" as typeof defaultParams;
-                    this.rawBroswerWindow.webContents.send(ipcEvent.channel, params);
-                    this.logActionDebug("Window restore.");
+                const restore = "restore";
+                this.rawBroswerWindow.on(restore, () => {
+                    const event = new IpcEventConstant.Default.WindowAction({ toRenderer: restore });
+                    const params = restore;
+                    this.rawBroswerWindow.webContents.send(event.channel, params);
+                    this.logActionDebug(`Window "${restore}".`);
                 });
-                this.rawBroswerWindow.on("blur", () => {
-                    const params = "blur" as typeof defaultParams;
-                    this.rawBroswerWindow.webContents.send(ipcEvent.channel, params);
-                    this.logActionDebug("Window blur.");
+                const blur = "blur";
+                this.rawBroswerWindow.on(blur, () => {
+                    const event = new IpcEventConstant.Default.WindowAction({ toRenderer: blur });
+                    const params = blur;
+                    this.rawBroswerWindow.webContents.send(event.channel, params);
+                    this.logActionDebug(`Window "${blur}".`);
                 });
-                this.rawBroswerWindow.on("close", () => {
+                const close = "close";
+                this.rawBroswerWindow.on(close, () => {
                     // TODO: delete from window pool
-                    const params = "close" as typeof defaultParams;
-                    this.rawBroswerWindow.webContents.send(ipcEvent.channel, params);
-                    this.logActionDebug("Window close.");
+                    const event = new IpcEventConstant.Default.WindowAction({ toRenderer: close });
+                    const params = close;
+                    this.rawBroswerWindow.webContents.send(event.channel, params);
+                    this.logActionDebug(`Window "${close}".`);
                 });
-                this.rawBroswerWindow.on("hide", () => {
-                    const params = "hide" as typeof defaultParams;
-                    this.rawBroswerWindow.webContents.send(ipcEvent.channel, params);
-                    this.logActionDebug("Window hide.");
+                const hide = "hide";
+                this.rawBroswerWindow.on(hide, () => {
+                    const event = new IpcEventConstant.Default.WindowAction({ toRenderer: hide });
+                    const params = hide;
+                    this.rawBroswerWindow.webContents.send(event.channel, params);
+                    this.logActionDebug(`Window "${hide}".`);
                 });
-                this.rawBroswerWindow.on("focus", () => {
-                    const params = "focus" as typeof defaultParams;
-                    this.rawBroswerWindow.webContents.send(ipcEvent.channel, params);
-                    this.logActionDebug("Window focus.");
+                const focus = "focus";
+                this.rawBroswerWindow.on(focus, () => {
+                    const event = new IpcEventConstant.Default.WindowAction({ toRenderer: focus });
+                    const params = focus;
+                    this.rawBroswerWindow.webContents.send(event.channel, params);
+                    this.logActionDebug(`Window "${focus}".`);
                 });
-                this.rawBroswerWindow.on("show", () => {
-                    const params = "show" as typeof defaultParams;
-                    this.rawBroswerWindow.webContents.send(ipcEvent.channel, params);
-                    this.logActionDebug("Window show.");
+                const show = "show";
+                this.rawBroswerWindow.on(show, () => {
+                    const event = new IpcEventConstant.Default.WindowAction({ toRenderer: show });
+                    const params = show;
+                    this.rawBroswerWindow.webContents.send(event.channel, params);
+                    this.logActionDebug(`Window "${show}".`);
                 });
             }
             // done

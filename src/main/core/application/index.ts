@@ -1,7 +1,7 @@
 // import icon from "../../resources/icon.png?asset";
 import { app, ipcMain } from "electron";
 import { LoggerFactory } from "./logger";
-import { Event } from "../event";
+import { IpcEvent } from "../ipc-event";
 import { Base } from "../base";
 import { Window } from "../window";
 import { is } from "@electron-toolkit/utils";
@@ -40,13 +40,13 @@ export namespace Application {
      */
     function registerIpcMainEvents(): void {
         const loggerMessagePrefix: string = "(IpcMain)";
-        const events: Array<Base.Application.BaseEventInstance> = Event.getAllRegisteredEventsClone();
+        const events: Array<Base.Application.BaseEventIpcInstance> = IpcEvent.getAllRegisteredEventsClone();
         // register
         for (const event of events) {
             // receive
             ipcMain.on(event.eventChannelPrefix, (_event, params) => {
-                logger.info(`${loggerMessagePrefix} received params, channel = "${event.eventChannelPrefix}", params = "${JSON.stringify(params)}".`);
-                event.receive(_event, params);
+                logger.info(`${loggerMessagePrefix} received params, channel = "${event.eventChannelPrefix}", params = ${JSON.stringify(params)}.`);
+                event.receive(_event, params)();
             });
             // done register one event
             logger.info(`${loggerMessagePrefix} receiver event registed, channel_prefix = "${event.eventChannelPrefix}".`);

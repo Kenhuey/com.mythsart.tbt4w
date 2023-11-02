@@ -1,6 +1,6 @@
 {
     "extends": "@electron-toolkit/tsconfig/tsconfig.web.json",
-    "include": ["src/renderer/src/env.d.ts", "src/renderer/src/**/*", "src/renderer/src/**/*.vue", "src/preload/*.d.ts", "src/main/constant/window.ts"],
+    "include": ["src/renderer/src/env.d.ts", "src/renderer/src/**/*", "src/renderer/src/**/*.vue", "src/preload/*.d.ts", "src/main/constant/window.ts", "src/main/constant/ipc-event.ts"],
     "compilerOptions": {
         "composite": true,
         "baseUrl": ".",

@@ -15,19 +15,19 @@ export namespace Util {
         /**
          * All registered IpcMain events
          */
-        private static readonly registeredIpcMainEvents: Array<Base.Application.BaseEventInstance> = [];
+        private static readonly registeredIpcMainEvents: Array<Base.Application.BaseEventIpcInstance> = [];
 
         /**
          * Register event class decorator
          */
-        public static Event<T extends { new (): Base.Application.BaseEventInstance }>(constructor: T): void {
+        public static IpcEvent<T extends { new (): Base.Application.BaseEventIpcInstance }>(constructor: T): void {
             Register.registeredIpcMainEvents.push(new constructor());
         }
 
         /**
          * All registered IpcMain events clone getter
          */
-        public static getAllRegisteredEventsClone(): Array<Base.Application.BaseEventInstance> {
+        public static getAllRegisteredEventsClone(): Array<Base.Application.BaseEventIpcInstance> {
             return [...Register.registeredIpcMainEvents];
         }
     }

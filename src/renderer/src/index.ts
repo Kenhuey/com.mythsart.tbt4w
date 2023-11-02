@@ -4,7 +4,6 @@ import Window from "@renderer/window";
 import { Base } from "@renderer/core/base";
 import { Router } from "@renderer/core/router";
 import "@renderer/window/main-window";
-import "@renderer/core/event";
 
 // TODO: 前端的 ipc 没准也可以用装饰器封装，这样在事件截获好像更方便了，做成 IPC event services
 
