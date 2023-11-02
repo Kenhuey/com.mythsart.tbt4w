@@ -1,14 +1,24 @@
-import { defineComponent } from "vue";
+import { defineComponent, SlotsType } from "vue";
 import ControlBar from "@renderer/window/component/control-bar";
 import "@renderer/style/window.scss";
 
-export default defineComponent({
-    setup: (_, { slots }) => {
+export default defineComponent<
+    { title?: string },
+    {},
+    "window-main",
+    SlotsType<{
+        default?: void;
+    }>
+>(
+    (props, { slots }) => {
         return () => (
             <div class="frame">
-                <ControlBar />
-                <div class="content">{slots.content && slots.content()} asd</div>
+                <ControlBar title={props.title} />
+                <div class="content">{slots.default && slots.default()}</div>
             </div>
         );
+    },
+    {
+        props: ["title"]
     }
-});
+);
