@@ -9,7 +9,7 @@ import WindowFrame from "@renderer/component/window-frame";
 import style from "./index.module.scss";
 
 function close(): void {
-    new IpcEventConstant.Default.WindowAction({}).rendererSendToMain(Hook.ipcRenderer, "close");
+    new IpcEventConstant.Default.WindowAction({ toMain: "close" }).rendererSendToMain(Hook.ipcRenderer);
 }
 
 /**

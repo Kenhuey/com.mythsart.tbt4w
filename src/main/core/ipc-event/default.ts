@@ -14,7 +14,7 @@ export namespace Default {
     @Util.Register.IpcEvent
     export class WindowAction extends Base.Application.BaseEventIpcInstance {
         public get eventDefine() {
-            return new IpcEventConstant.Default.WindowAction({ toMain: undefined, toRenderer: undefined });
+            return new IpcEventConstant.Default.WindowAction({ toRenderer: undefined });
         }
 
         public get eventChannelPrefix(): string {

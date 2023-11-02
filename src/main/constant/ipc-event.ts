@@ -53,10 +53,15 @@ export namespace IpcEventConstant {
          * When window action
          */
         export class WindowAction<
-            Options extends {
-                toMain?: WindowActionCommonType;
-                toRenderer?: WindowActionCommonType;
-            }
+            Options extends
+                | {
+                      toMain: WindowActionCommonType;
+                      toRenderer?: NoType;
+                  }
+                | {
+                      toMain?: NoType;
+                      toRenderer: WindowActionCommonType;
+                  }
         > extends BaseEventDefine {
             private options: Options;
 
@@ -81,12 +86,12 @@ export namespace IpcEventConstant {
                 ipcRenderer.on(this.channel, callback);
             }
 
-            public rendererSendToMainSync(ipcRenderer: IpcRenderer, params: WindowActionCommonType): void {
-                ipcRenderer.sendSync(this.channel, params);
+            public rendererSendToMainSync(ipcRenderer: IpcRenderer): void {
+                ipcRenderer.sendSync(this.channel, this.defaultParamsRendererToMain);
             }
 
-            public rendererSendToMain(ipcRenderer: IpcRenderer, params: WindowActionCommonType): void {
-                ipcRenderer.send(this.channel, params);
+            public rendererSendToMain(ipcRenderer: IpcRenderer): void {
+                ipcRenderer.send(this.channel, this.defaultParamsRendererToMain);
             }
         }
     }
