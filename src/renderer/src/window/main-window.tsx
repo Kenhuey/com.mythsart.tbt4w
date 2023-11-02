@@ -4,6 +4,7 @@ import { Router } from "@renderer/core/router";
 import { defineComponent } from "vue";
 import { RouteRecordRaw } from "vue-router";
 import WindowFrame from "@renderer/window/component/window-frame";
+import style from "./main-window.module.scss";
 
 /*
  * Main window
@@ -24,7 +25,7 @@ export default class MainWindow extends Base.Application.WindowRouteRecord {
             setup: () => {
                 return () => (
                     <WindowFrame title="Main Window Title">
-                        <div class="main-window">Main Window Content</div>
+                        <div class={style["main-window"]}>Main Window Content</div>
                     </WindowFrame>
                 );
             }

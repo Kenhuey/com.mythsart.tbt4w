@@ -1,0 +1,19 @@
+.control-bar {
+    & {
+        height: 32px;
+        background: #e1e1e1;
+        display: flex;
+    }
+
+    .title-bar {
+        & {
+            background: #00e5e5;
+            align-items: center;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            -webkit-app-region: drag;
+            padding: 0px 12px;
+        }
+    }
+}

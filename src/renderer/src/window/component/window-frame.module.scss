@@ -1,4 +1,4 @@
-.frame {
+.window-frame {
     & {
         flex: 1;
         background: #fff;
@@ -12,18 +12,5 @@
         & {
             flex: 1;
         }
-    }
-}
-
-.control-bar {
-    & {
-        height: 32px;
-        background: #e1e1e1;
-    }
-}
-
-.main-window {
-    & {
-        background: #eee;
     }
 }

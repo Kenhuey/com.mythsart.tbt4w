@@ -1,11 +1,11 @@
 import { defineComponent } from "vue";
-import "@renderer/style/window.scss";
+import style from "./control-bar.module.scss";
 
 export default defineComponent<{ title?: string }>(
     (props) => {
         return () => (
-            <div class="control-bar">
-                <div class="title-bar">{props.title}</div>
+            <div class={style["control-bar"]}>
+                <div class={style["title-bar"]}>{props.title}</div>
             </div>
         );
     },
