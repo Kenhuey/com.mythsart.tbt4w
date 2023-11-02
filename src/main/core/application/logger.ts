@@ -1,61 +1,61 @@
 import Log4js from "log4js";
 import { is } from "@electron-toolkit/utils";
 
-/*
+/**
  * Logger
  */
 export namespace LoggerFactory {
-    /*
+    /**
      * Logger alias
      */
     export type LoggerType = Log4js.Logger;
 
-    /*
+    /**
      * Factory class
      */
     export class Logger {
-        /*
+        /**
          * Current logger
          */
         private readonly _logger: LoggerType;
 
-        /*
+        /**
          * Constructor
          */
         private constructor(loggerName: string) {
             this._logger = Log4js.getLogger(loggerName);
         }
 
-        /*
+        /**
          * Logger getter
          */
         public get loggerRaw(): LoggerType {
             return this._logger;
         }
 
-        /*
+        /**
          * Logger
          */
         private static _logger: LoggerType | undefined;
 
-        /*
+        /**
          * Logger getter
          */
         private static get logger(): LoggerType | undefined {
             return Logger._logger;
         }
 
-        /*
+        /**
          * Default logger
          */
         private static _consoleLogger: LoggerType | undefined;
 
-        /*
+        /**
          * Loggers
          */
         private static loggerMap: Map<string, Logger> = new Map([]);
 
-        /*
+        /**
          * Get logger instance by name
          */
         public static getLogger(loggerName: string): Logger {
@@ -70,7 +70,7 @@ export namespace LoggerFactory {
             return Logger.loggerMap.get(loggerName)!;
         }
 
-        /*
+        /**
          * Get logger raw by name
          */
         public static getLoggerRaw(loggerName?: string): LoggerType {
@@ -80,7 +80,7 @@ export namespace LoggerFactory {
             return Logger.getLogger(loggerName).loggerRaw;
         }
 
-        /*
+        /**
          * Get console(default) logger
          */
         public static get consoleLogger(): LoggerType {
@@ -90,7 +90,7 @@ export namespace LoggerFactory {
             return Logger._consoleLogger!;
         }
 
-        /*
+        /**
          * Logger initialize
          */
         public static initialize(): typeof LoggerFactory {

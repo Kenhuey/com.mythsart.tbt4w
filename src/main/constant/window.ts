@@ -1,4 +1,4 @@
-/*
+/**
  * Window name constants
  * Renderer refence safe
  */

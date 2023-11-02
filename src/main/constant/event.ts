@@ -1,9 +1,9 @@
-/*
+/**
  * IPC event constants
  * Renderer refence safe
  */
 export namespace EventConstant {
-    /*
+    /**
      * Base event class
      */
     export abstract class BaseEventDefine {
@@ -18,11 +18,11 @@ export namespace EventConstant {
         return new constructor();
     }
 
-    /*
+    /**
      * Window default events
      */
     export namespace Default {
-        /*
+        /**
          * When window action
          */
         export class WindowAction extends BaseEventDefine {

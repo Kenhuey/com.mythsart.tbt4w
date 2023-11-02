@@ -4,11 +4,11 @@ import { BrowserWindow, IpcMainEvent, IpcMainInvokeEvent } from "electron";
 import { Window } from "../window";
 import { Util } from "./util";
 
-/*
+/**
  * Default(system) window event
  */
 export namespace Default {
-    /*
+    /**
      * Window action
      */
     @Util.Register.Event

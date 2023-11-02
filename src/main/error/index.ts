@@ -1,4 +1,4 @@
-/*
+/**
  * Global errors
  */
 export namespace ApplicationError {

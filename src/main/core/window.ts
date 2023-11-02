@@ -6,11 +6,11 @@ import { EventConstant } from "../constant/event";
 import { WindowNameConstance } from "../constant/window";
 import LogoIcon from "../../../resources/icon.png?asset";
 
-/*
+/**
  * Window core
  */
 export namespace Window {
-    /*
+    /**
      * Window build options
      */
     export interface BuildOptions {
@@ -18,11 +18,11 @@ export namespace Window {
         showWhenReady?: boolean;
     }
 
-    /*
+    /**
      * Inner utils
      */
     export namespace Util {
-        /*
+        /**
          * IpcMainEvent.WebContents declare
          * Unsafe, not documented
          */
@@ -30,7 +30,7 @@ export namespace Window {
             getOwnerBrowserWindow(): BrowserWindow | null;
         }
 
-        /*
+        /**
          * Get browser window by event
          */
         export function getOwnerBrowserWindowByIpcMainEvent(event: IpcMainEvent | IpcMainInvokeEvent): BrowserWindow {
@@ -38,46 +38,46 @@ export namespace Window {
         }
     }
 
-    /*
+    /**
      * Generator instance
      */
     export class Instance extends Base.Application.BaseObject {
-        /*
+        /**
          * Construct options
          */
         private readonly browserWindowConstructorOptions: BrowserWindowConstructorOptions;
 
-        /*
+        /**
          * Build options
          */
         private readonly browserWindowbuildOptions: BuildOptions;
 
-        /*
+        /**
          * Raw broswer window instance
          */
         private readonly _rawBroswerWindow: BrowserWindow;
 
-        /*
+        /**
          * Broswer window url path
          */
         private readonly _windowPath: string;
 
-        /*
+        /**
          * Get raw broswer window instance
          */
         public get rawBroswerWindow(): BrowserWindow {
             return this._rawBroswerWindow;
         }
 
-        /*
+        /**
          * Constructor
          */
         public constructor(
-            /*
+            /**
              * Options when construct
              */
             constructOptions: BrowserWindowConstructorOptions,
-            /*
+            /**
              * Options when build
              */
             buildOptions: BuildOptions
@@ -193,11 +193,11 @@ export namespace Window {
         }
     }
 
-    /*
+    /**
      * Window presets
      */
     export namespace Preset {
-        /*
+        /**
          * Main window
          */
         export class MainWindowPreset extends Base.Application.BaseWindowPreset {
@@ -231,22 +231,22 @@ export namespace Window {
         }
     }
 
-    /*
+    /**
      * Window generator
      */
     export namespace Generator {
-        /*
+        /**
          * Window instance pool map type
          * <id, instance>
          */
         type WindowPoolType = Map<number, Instance>;
 
-        /*
+        /**
          * Window instance pool map
          */
         const windowPoolMap: WindowPoolType = new Map();
 
-        /*
+        /**
          * Get window pool map's clone
          * To avoid to change pool map(value instance still can be operate)
          */
@@ -254,7 +254,7 @@ export namespace Window {
             return new Map([...windowPoolMap]);
         }
 
-        /*
+        /**
          * Build window
          */
         export function build<T extends { new (): Base.Application.BaseWindowPreset }>(presetType: T): Instance {

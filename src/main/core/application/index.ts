@@ -8,26 +8,26 @@ import { is } from "@electron-toolkit/utils";
 
 export { LoggerFactory };
 
-/*
+/**
  * Entries of application
  */
 export namespace Application {
-    /*
+    /**
      * Application logger
      */
     const logger: LoggerFactory.LoggerType = LoggerFactory.Logger.getLoggerRaw("application");
 
-    /*
+    /**
      * Base interface of application entry
      */
     export interface Entry {
-        /*
+        /**
          * Run after application mounted
          */
         onMounted(): void;
     }
 
-    /*
+    /**
      * Force quit
      */
     function applicationForceQuit(): void {
@@ -35,7 +35,7 @@ export namespace Application {
         process.exit(-1);
     }
 
-    /*
+    /**
      * Register all IpcMain events
      */
     function registerIpcMainEvents(): void {
@@ -57,7 +57,7 @@ export namespace Application {
         logger.info(`Debug = "${is.dev}".`);
     }
 
-    /*
+    /**
      * Application entry
      */
     export function Main<T extends { new (): Entry }>(constructor: T): void {

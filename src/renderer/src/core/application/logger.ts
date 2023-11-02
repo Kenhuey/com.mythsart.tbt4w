@@ -1,38 +1,38 @@
-/*
+/**
  * Logger
  */
 export namespace LoggerFactory {
-    /*
+    /**
      * Factory class
      */
     export class Logger {
-        /*
+        /**
          * Logger name
          */
         private readonly _loggerName: string;
 
-        /*
+        /**
          * Logger name getter
          */
         public get loggerName(): string {
             return this._loggerName;
         }
 
-        /*
+        /**
          * Constructor
          */
         private constructor(loggerName: string) {
             this._loggerName = loggerName;
         }
 
-        /*
+        /**
          * Loggers
          */
         private static loggerMap: Map<string, Logger> = new Map([]);
 
         private static _consoleLogger: Logger | undefined = undefined;
 
-        /*
+        /**
          * Get console(default) logger
          */
         public static get consoleLogger(): Logger {
@@ -42,7 +42,7 @@ export namespace LoggerFactory {
             return Logger._consoleLogger!;
         }
 
-        /*
+        /**
          * Get logger instance by name
          */
         public static getLogger(loggerName?: string): Logger {
@@ -60,12 +60,12 @@ export namespace LoggerFactory {
             return Logger.loggerMap.get(loggerName)!;
         }
 
-        /*
+        /**
          * Logger
          */
         private static _logger: Logger | undefined = undefined;
 
-        /*
+        /**
          * Logger getter
          */
         private static get logger(): Logger {
@@ -101,7 +101,7 @@ export namespace LoggerFactory {
             console.debug(message, this.loggerName);
         }
 
-        /*
+        /**
          * Logger initialize
          */
         public static initialize(): typeof LoggerFactory {

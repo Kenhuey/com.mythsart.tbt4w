@@ -6,7 +6,7 @@ import { RouteRecordRaw } from "vue-router";
 import WindowFrame from "@renderer/component/window-frame";
 import style from "./index.module.scss";
 
-/*
+/**
  * Main window
  */
 @Router.Window
