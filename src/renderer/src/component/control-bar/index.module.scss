@@ -1,0 +1,33 @@
+.control-bar {
+    & {
+        height: 32px;
+        background: #e1e1e1;
+        display: flex;
+        align-items: center;
+    }
+
+    .icon {
+        & {
+            margin: 0px 12px;
+            $size: 16px;
+            width: $size;
+            height: $size;
+            background-size: $size;
+        }
+    }
+
+    .title-bar {
+        & {
+            text-overflow: ellipsis;
+            align-items: center;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            -webkit-app-region: drag;
+            padding: 0px 0px;
+            font-size: 12px;
+            line-height: 24px;
+            height: 100%;
+        }
+    }
+}

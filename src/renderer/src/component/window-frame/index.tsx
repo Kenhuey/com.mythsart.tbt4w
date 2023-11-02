@@ -1,11 +1,11 @@
 import { defineComponent, SlotsType } from "vue";
-import ControlBar from "@renderer/window/component/control-bar";
-import style from "./window-frame.module.scss";
+import ControlBar from "@renderer/component/control-bar";
+import style from "./index.module.scss";
 
 export default defineComponent<
     { title?: string },
     {},
-    "window-main",
+    "",
     SlotsType<{
         default?: void;
     }>

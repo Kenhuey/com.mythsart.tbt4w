@@ -76,16 +76,17 @@ export namespace Application {
                 logApplicationInformation();
                 // register IpcMain events
                 registerIpcMainEvents();
-                // multiple application
-                app.on("second-instance", () => {
-                    // TODO: 单例启动提示 notif..
-                });
                 // application active
                 {
                     // TODO: persistence
                     // TODO: configure
                     // TODO: 走程序初始化完毕业务流程
-                    Window.Generator.build(Window.Preset.MainWindowPreset);
+                    const mainWindowInstance = Window.Generator.build(Window.Preset.MainWindowPreset);
+                    // multiple application
+                    app.on("second-instance", () => {
+                        mainWindowInstance.rawBroswerWindow.focus();
+                        // TODO: 单例启动提示 notif..
+                    });
                 }
             })
             .catch((error: unknown) => {

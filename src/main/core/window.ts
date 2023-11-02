@@ -1,9 +1,10 @@
-import { shell, BrowserWindow, BrowserWindowConstructorOptions, IpcMainEvent, WebContents, IpcMainInvokeEvent } from "electron";
+import { shell, BrowserWindow, BrowserWindowConstructorOptions, IpcMainEvent, WebContents, IpcMainInvokeEvent, nativeImage } from "electron";
 import { is, optimizer } from "@electron-toolkit/utils";
 import { Base } from "./base";
 import Path from "path";
 import { EventConstant } from "../constant/event";
 import { WindowNameConstance } from "../constant/window";
+import LogoIcon from "../../../resources/icon.png?asset";
 
 /*
  * Window core
@@ -93,19 +94,12 @@ export namespace Window {
                 if (!this.browserWindowConstructorOptions.webPreferences) {
                     this.browserWindowConstructorOptions.webPreferences = {};
                 }
-                // if (!this.browserWindowConstructorOptions.webPreferences?.nodeIntegration) {
-                //     this.browserWindowConstructorOptions.webPreferences.nodeIntegration = true;
-                // }
                 if (!this.browserWindowConstructorOptions.webPreferences?.contextIsolation) {
                     this.browserWindowConstructorOptions.webPreferences.contextIsolation = true;
                 }
-                // if (!this.browserWindowConstructorOptions.transparent) {
-                //     this.browserWindowConstructorOptions.transparent = true;
-                // }
-                // avoid cors origins
-                // if (!this.browserWindowConstructorOptions.webPreferences.webSecurity) {
-                //     this.browserWindowConstructorOptions.webPreferences.webSecurity = false;
-                // }
+                if (!this.browserWindowConstructorOptions.icon) {
+                    this.browserWindowConstructorOptions.icon = nativeImage.createFromDataURL(LogoIcon);
+                }
             }
             // build window
             {

@@ -7,6 +7,10 @@
         "noUnusedLocals": false,
         "noUnusedParameters": false,
         "emitDecoratorMetadata": true,
-        "experimentalDecorators": true
+        "experimentalDecorators": true,
+        "baseUrl": ".",
+        "paths": {
+            "@resource/*": ["resource/*"]
+        }
     }
 }

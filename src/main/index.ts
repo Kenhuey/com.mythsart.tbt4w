@@ -14,7 +14,8 @@ export class Main extends Base.Application.BaseObject implements Application.Ent
     }
 
     public onMounted(): void {
-        // done
+        // mounted
         this.logger.info("Main mounted.");
+        // TODO: update checks (to async)
     }
 }

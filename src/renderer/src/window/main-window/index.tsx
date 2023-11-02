@@ -1,10 +1,10 @@
-import { WindowNameConstance } from "../../../main/constant/window"; // todo alias
+import { WindowNameConstance } from "../../../../main/constant/window";
 import { Base } from "@renderer/core/base";
 import { Router } from "@renderer/core/router";
 import { defineComponent } from "vue";
 import { RouteRecordRaw } from "vue-router";
-import WindowFrame from "@renderer/window/component/window-frame";
-import style from "./main-window.module.scss";
+import WindowFrame from "@renderer/component/window-frame";
+import style from "./index.module.scss";
 
 /*
  * Main window
