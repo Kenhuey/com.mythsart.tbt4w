@@ -1,6 +1,8 @@
 import { IpcRendererEvent } from "electron";
 import { IpcRenderer } from "@electron-toolkit/preload";
 
+// TODO: 二次封装，eventdefine 要求传入ipcrenderer
+
 /**
  * IPC event constants
  * Renderer refence safe
@@ -10,6 +12,16 @@ export namespace IpcEventConstant {
      * Base event class
      */
     export abstract class BaseEventDefine {
+        private _ipcRenderer?: IpcRenderer;
+
+        protected get ipcRenderer(): IpcRenderer | undefined {
+            return this._ipcRenderer;
+        }
+
+        public constructor(ipcRenderer?: IpcRenderer) {
+            this._ipcRenderer = ipcRenderer;
+        }
+
         /**
          * Channel name
          */
@@ -28,11 +40,21 @@ export namespace IpcEventConstant {
         /**
          * Default renderer receive
          */
-        public abstract handleRendererReceive(ipcRenderer: IpcRenderer, callback: (event: IpcRendererEvent, params: any) => void): void;
+        public abstract handleRendererReceive(callback: (event: IpcRendererEvent, params: any) => void): void;
 
-        public abstract rendererSendToMainSync(ipcRenderer: IpcRenderer, params: any): void;
+        /**
+         * Renderer to main sync
+         */
+        public rendererSendToMainSync(): void {
+            this.ipcRenderer?.sendSync(this.channel, this.defaultParamsRendererToMain);
+        }
 
-        public abstract rendererSendToMain(ipcRenderer: IpcRenderer, params: any): void;
+        /**
+         * Renderer to main
+         */
+        public rendererSendToMain(): void {
+            this.ipcRenderer?.send(this.channel, this.defaultParamsRendererToMain);
+        }
     }
 
     /**
@@ -42,31 +64,26 @@ export namespace IpcEventConstant {
         /**
          * No type(for default)
          */
-        type NoType = undefined;
+        export type NoType = undefined;
 
         /**
          * Window action type(both renderer and main)
          */
-        type WindowActionCommonType = NoType | "minimize" | "maximize" | "unmaximize" | "restore" | "blur" | "focus" | "close" | "hide" | "show";
+        export type WindowActionCommonType = NoType | "minimize" | "maximize" | "unmaximize" | "restore" | "blur" | "focus" | "close" | "hide" | "show";
 
         /**
          * When window action
          */
         export class WindowAction<
-            Options extends
-                | {
-                      toMain: WindowActionCommonType;
-                      toRenderer?: NoType;
-                  }
-                | {
-                      toMain?: NoType;
-                      toRenderer: WindowActionCommonType;
-                  }
+            Options extends {
+                toMain?: WindowActionCommonType;
+                toRenderer?: WindowActionCommonType;
+            }
         > extends BaseEventDefine {
             private options: Options;
 
-            public constructor(options: Options) {
-                super();
+            public constructor(options: Options, ipcRenderer?: IpcRenderer) {
+                super(ipcRenderer);
                 this.options = options;
             }
 
@@ -82,16 +99,48 @@ export namespace IpcEventConstant {
                 return this.options.toRenderer;
             }
 
-            public handleRendererReceive(ipcRenderer: IpcRenderer, callback: (event: IpcRendererEvent, params: WindowActionCommonType) => void): void {
-                ipcRenderer.on(this.channel, callback);
+            public handleRendererReceive(callback: (event: IpcRendererEvent, params: WindowActionCommonType) => void): void {
+                super.ipcRenderer?.on(this.channel, callback);
+            }
+        }
+
+        /**
+         * Window status type
+         */
+        export type WindowStatusType = {
+            isFocusd: boolean;
+            isMaximized: boolean;
+        };
+
+        /**
+         * Window status
+         */
+        export class WindowStatus<
+            Options extends {
+                toRenderer?: WindowStatusType;
+            }
+        > extends BaseEventDefine {
+            private options: Options;
+
+            public constructor(options: Options, ipcRenderer?: IpcRenderer) {
+                super(ipcRenderer);
+                this.options = options;
             }
 
-            public rendererSendToMainSync(ipcRenderer: IpcRenderer): void {
-                ipcRenderer.sendSync(this.channel, this.defaultParamsRendererToMain);
+            public get channel(): string {
+                return "WINDOW_STATUS";
             }
 
-            public rendererSendToMain(ipcRenderer: IpcRenderer): void {
-                ipcRenderer.send(this.channel, this.defaultParamsRendererToMain);
+            public get defaultParamsRendererToMain(): NoType {
+                return undefined;
+            }
+
+            public get defaultParamsMainToRenderer(): WindowStatusType | undefined {
+                return this.options.toRenderer;
+            }
+
+            public handleRendererReceive(callback: (event: IpcRendererEvent, params: WindowStatusType) => void): void {
+                super.ipcRenderer?.on(this.channel, callback);
             }
         }
     }

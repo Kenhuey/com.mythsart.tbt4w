@@ -14,7 +14,7 @@ export namespace Default {
     @Util.Register.IpcEvent
     export class WindowAction extends Base.Application.BaseEventIpcInstance {
         public get eventDefine() {
-            return new IpcEventConstant.Default.WindowAction({ toRenderer: undefined });
+            return new IpcEventConstant.Default.WindowAction({});
         }
 
         public get eventChannelPrefix(): string {
@@ -63,6 +63,31 @@ export namespace Default {
                         break;
                     }
                 }
+            };
+        }
+    }
+
+    /**
+     * Window status
+     */
+    @Util.Register.IpcEvent
+    export class WindowStatus extends Base.Application.BaseEventIpcInstance {
+        public get eventDefine() {
+            return new IpcEventConstant.Default.WindowStatus({});
+        }
+
+        public get eventChannelPrefix(): string {
+            return this.eventDefine.channel;
+        }
+
+        public receive(event: IpcMainEvent | IpcMainInvokeEvent): () => void | Promise<void> {
+            const senderWindow: BrowserWindow = Window.Util.getOwnerBrowserWindowByIpcMainEvent(event);
+            return () => {
+                const convertedParams: typeof this.eventDefine.defaultParamsMainToRenderer = {
+                    isFocusd: senderWindow.isFocused(),
+                    isMaximized: senderWindow.isMaximized()
+                };
+                senderWindow.webContents.send(this.eventChannelPrefix, convertedParams);
             };
         }
     }

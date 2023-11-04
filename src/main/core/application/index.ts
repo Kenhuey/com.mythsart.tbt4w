@@ -46,6 +46,7 @@ export namespace Application {
             // receive
             ipcMain.on(event.eventChannelPrefix, (_event, params) => {
                 logger.info(`${loggerMessagePrefix} received params, channel = "${event.eventChannelPrefix}", params = ${JSON.stringify(params)}.`);
+                _event.returnValue = null;
                 event.receive(_event, params)();
             });
             // done register one event

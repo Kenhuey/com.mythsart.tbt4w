@@ -7,6 +7,11 @@ import { DefineComponent } from "vue";
  */
 export namespace Base {
     /**
+     * Vue defineComponent default type
+     */
+    export type DefineComponentType = DefineComponent<{}, {}, any>;
+
+    /**
      * Application base
      */
     export namespace Application {
@@ -37,27 +42,44 @@ export namespace Base {
         /**
          * Base component interface
          */
-        export interface Component {
-            getComponent: () => DefineComponent<{}, {}, any>;
+        export interface IComponent {
+            /**
+             * Vue component getter
+             */
+            getComponent: () => DefineComponentType;
+        }
+
+        /**
+         * Base component class
+         */
+        export abstract class Component extends Base.Application.BaseObject implements IComponent {
+            public abstract getComponent(): DefineComponentType;
+
+            /**
+             * Constructor
+             */
+            protected constructor(loggerName: string) {
+                super(`component(${loggerName})`);
+            }
         }
 
         /**
          * Base window record object
          */
-        export abstract class WindowRouteRecord extends Base.Application.BaseObject implements Component {
+        export abstract class WindowRouteRecord extends Base.Application.BaseObject implements IComponent {
+            public abstract getComponent(): DefineComponentType;
+
             /**
              * Constructor
              */
             public constructor() {
-                super("router_record");
+                super("window_router_record");
             }
 
             /**
              * Vue router raw record
              */
             public abstract get raw(): RouteRecordRaw;
-
-            public abstract getComponent(): DefineComponent<{}, {}, any>;
         }
     }
 }
