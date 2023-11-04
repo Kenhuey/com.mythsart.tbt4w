@@ -51,21 +51,8 @@ export default class Renderer extends Base.Application.BaseObject implements App
             new IpcEventConstant.Default.WindowStatus({}, Hook.ipcRenderer).rendererSendToMainSync();
             // log action type
             this.logger.debug(`Window action updated: "${params}".`);
-            // actions
-            if (params === "unmaximize") {
-                windowStatus.value.isMaximized = false;
-            }
-            if (params === "maximize") {
-                windowStatus.value.isMaximized = true;
-            }
-            if (params === "focus") {
-                windowStatus.value.isFocusd = true;
-            }
-            if (params === "blur") {
-                windowStatus.value.isFocusd = false;
-            }
+            new IpcEventConstant.Default.WindowStatus({}, Hook.ipcRenderer).rendererSendToMainSync();
         });
-        new IpcEventConstant.Default.WindowStatus({}, Hook.ipcRenderer).rendererSendToMainSync();
         // mounted
         this.logger.info(`Renderer mounted.`);
     }

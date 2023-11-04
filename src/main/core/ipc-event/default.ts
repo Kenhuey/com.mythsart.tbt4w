@@ -82,6 +82,7 @@ export namespace Default {
 
         public receive(event: IpcMainEvent | IpcMainInvokeEvent): () => void | Promise<void> {
             const senderWindow: BrowserWindow = Window.Util.getOwnerBrowserWindowByIpcMainEvent(event);
+            const instance = Window.Generator.getWindowPoolMapClone().get(senderWindow.id);
             return () => {
                 const convertedParams: typeof this.eventDefine.defaultParamsMainToRenderer = {
                     is: {
@@ -94,7 +95,7 @@ export namespace Default {
                         maximize: senderWindow.isMaximizable(),
                         close: senderWindow.isClosable()
                     },
-                    invisibleNonAllowedAction: Window.Generator.getWindowPoolMapClone().get(senderWindow.id)?.rawBrowserWindowbuildOptions.invisibleNonAllowedAction === true ? true : false
+                    invisibleNonAllowedAction: instance?.rawBrowserWindowbuildOptions.invisibleNonAllowedAction === true ? true : false
                 };
                 senderWindow.webContents.send(this.eventChannelPrefix, convertedParams);
             };

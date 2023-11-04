@@ -186,12 +186,16 @@ export namespace Window {
                 this.rawBroswerWindow.on(blur, () => {
                     const event = new IpcEventConstant.Default.WindowAction({ toRenderer: blur });
                     const params = event.defaultParamsMainToRenderer;
-                    this.rawBroswerWindow.webContents.send(event.channel, params);
+                    try {
+                        this.rawBroswerWindow.webContents.send(event.channel, params);
+                    } catch (_) {
+                        _;
+                    }
                     this.logActionDebug(`Window "${blur}".`);
                 });
                 const close = "close";
                 this.rawBroswerWindow.on(close, () => {
-                    // TODO: delete from window pool
+                    Generator.removeMapFromWindowPool(this.rawBroswerWindow.id);
                     const event = new IpcEventConstant.Default.WindowAction({ toRenderer: close });
                     const params = event.defaultParamsMainToRenderer;
                     this.rawBroswerWindow.webContents.send(event.channel, params);
@@ -302,6 +306,7 @@ export namespace Window {
         export function build<T extends { new (): Base.Application.BaseWindowPreset }>(presetType: T): Instance {
             const windowPreset: Base.Application.BaseWindowPreset = new presetType();
             const windowInstance: Instance = new Instance(windowPreset.constructOptions, windowPreset.buildOptions);
+            windowPoolMap.set(windowInstance.rawBroswerWindow.id, windowInstance);
             return windowInstance;
         }
     }

@@ -32,12 +32,14 @@ class WindowControlBar extends Base.Application.Component {
                         <div class={style["control-button-container"]}>
                             <div
                                 class={[style["default-control-button"], windowStatus.value.allow.minimize ? null : style["control-button-disable"]]}
+                                style={{ display: windowStatus.value.invisibleNonAllowedAction && !windowStatus.value.allow.minimize ? "none" : "flex" }}
                                 onClick={() => this.windowAction("minimize", windowStatus.value.allow.minimize)}
                             >
                                 <div class={style["minimize-icon"]}></div>
                             </div>
                             <div
                                 class={[style["default-control-button"], windowStatus.value.allow.maximize ? null : style["control-button-disable"]]}
+                                style={{ display: windowStatus.value.invisibleNonAllowedAction && !windowStatus.value.allow.maximize ? "none" : "flex" }}
                                 onClick={() =>
                                     windowStatus.value.is.maximize
                                         ? this.windowAction("unmaximize", windowStatus.value.allow.maximize)
@@ -60,6 +62,7 @@ class WindowControlBar extends Base.Application.Component {
                                     windowStatus.value.allow.close ? style["control-button-close"] : null,
                                     windowStatus.value.allow.close ? null : style["control-button-disable"]
                                 ]}
+                                style={{ display: windowStatus.value.invisibleNonAllowedAction && !windowStatus.value.allow.close ? "none" : "flex" }}
                                 onClick={() => this.windowAction("close", windowStatus.value.allow.close)}
                             >
                                 <Icon>
