@@ -1,5 +1,6 @@
 import { defineComponent, KeepAlive, VNode } from "vue";
 import { RouterView } from "vue-router";
+import "@renderer/style/index.scss";
 import style from "./index.module.scss";
 
 export default defineComponent({

@@ -42,13 +42,13 @@ export default class Renderer extends Base.Application.BaseObject implements App
         const { windowStatus } = Store.useCommon();
         // window status event
         new IpcEventConstant.Default.WindowStatus({}, Hook.ipcRenderer).handleRendererReceive((_event, params) => {
-            this.logger.info(`Window status updated: "${JSON.stringify(windowStatus.value, null, 0)}".`);
+            this.logger.debug(`Window status updated: "${JSON.stringify(windowStatus.value, null, 0)}".`);
             windowStatus.value = params;
         });
         // default window action event
         new IpcEventConstant.Default.WindowAction({}, Hook.ipcRenderer).handleRendererReceive((_event, params) => {
             // refresh window status
-            new IpcEventConstant.Default.WindowStatus({}, Hook.ipcRenderer).rendererSendToMain();
+            new IpcEventConstant.Default.WindowStatus({}, Hook.ipcRenderer).rendererSendToMainSync();
             // log action type
             this.logger.debug(`Window action updated: "${params}".`);
             // actions
@@ -65,7 +65,7 @@ export default class Renderer extends Base.Application.BaseObject implements App
                 windowStatus.value.isFocusd = false;
             }
         });
-        new IpcEventConstant.Default.WindowStatus({}, Hook.ipcRenderer).rendererSendToMain();
+        new IpcEventConstant.Default.WindowStatus({}, Hook.ipcRenderer).rendererSendToMainSync();
         // mounted
         this.logger.info(`Renderer mounted.`);
     }

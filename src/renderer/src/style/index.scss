@@ -1,0 +1,16 @@
+html,
+body,
+#application {
+    margin: 0px;
+    padding: 0px;
+    user-select: none;
+    font-size: 12px;
+    line-height: 24px;
+    color: #1e1e1e;
+    width: 100vw;
+    height: 100vh;
+}
+
+* {
+    text-overflow: ellipsis;
+}

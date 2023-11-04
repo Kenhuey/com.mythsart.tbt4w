@@ -5,6 +5,7 @@
         display: flex;
         align-items: center;
         color: #1e1e1e;
+        transition: all 0.15s !important;
     }
 
     .icon {
@@ -30,5 +31,76 @@
             line-height: 24px;
             height: 100%;
         }
+    }
+
+    .control-button-container {
+        & {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .default-control-button {
+            $icon-color: #1e1e1e;
+
+            & {
+                width: 46px;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: $icon-color !important;
+            }
+
+            &:hover {
+                background: rgba($color: #000000, $alpha: 0.1);
+            }
+
+            .minimize-icon {
+                & {
+                    width: 10px;
+                    height: 1px;
+                    background-color: $icon-color !important;
+                }
+            }
+        }
+
+        .control-button-close {
+            &:hover {
+                background: rgba($color: #cf3d30, $alpha: 1);
+                color: #f7f9fc !important;
+            }
+        }
+
+        .control-button-disable {
+            & {
+                color: rgba($color: #1e1e1e, $alpha: 0.5) !important;
+                cursor: not-allowed;
+            }
+
+            &:hover {
+                background: rgba($color: #000000, $alpha: 0);
+
+                .control-button-icon {
+                    & {
+                        color: rgba($color: #000000, $alpha: 0.5) !important;
+                    }
+                }
+            }
+
+            .minimize-icon {
+                & {
+                    background-color: rgba($color: #000000, $alpha: 0.5) !important;
+                }
+            }
+        }
+    }
+}
+
+.control-bar-blur {
+    & {
+        background: none;
     }
 }

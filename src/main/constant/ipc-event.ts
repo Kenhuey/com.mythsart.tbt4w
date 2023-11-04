@@ -1,8 +1,6 @@
 import { IpcRendererEvent } from "electron";
 import { IpcRenderer } from "@electron-toolkit/preload";
 
-// TODO: 二次封装，eventdefine 要求传入ipcrenderer
-
 /**
  * IPC event constants
  * Renderer refence safe
@@ -108,8 +106,17 @@ export namespace IpcEventConstant {
          * Window status type
          */
         export type WindowStatusType = {
-            isFocusd: boolean;
-            isMaximized: boolean;
+            is: {
+                minimize: boolean;
+                maximize: boolean;
+                focus: boolean;
+            };
+            allow: {
+                minimize: boolean;
+                maximize: boolean;
+                close: boolean;
+            };
+            invisibleNonAllowedAction: boolean;
         };
 
         /**

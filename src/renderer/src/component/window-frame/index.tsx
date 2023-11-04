@@ -23,7 +23,7 @@ class WindowFrame extends Base.Application.Component {
                 const { windowStatus } = Store.useCommon();
                 // render
                 return () => (
-                    <div class={[style["window-frame"], windowStatus.value.isMaximized ? null : style["border"], windowStatus.value.isFocusd ? null : style["window-frame-blur"]]}>
+                    <div class={[style["window-frame"], windowStatus.value.is.maximize ? null : style["border"], windowStatus.value.is.focus ? null : style["window-frame-blur"]]}>
                         <ControlBar title={props.title} />
                         <div class={style["content"]}>{slots.default && slots.default()}</div>
                     </div>

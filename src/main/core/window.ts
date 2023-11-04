@@ -16,6 +16,7 @@ export namespace Window {
     export interface BuildOptions {
         windowName: string;
         showWhenReady?: boolean;
+        invisibleNonAllowedAction?: boolean;
     }
 
     /**
@@ -48,9 +49,23 @@ export namespace Window {
         private readonly browserWindowConstructorOptions: BrowserWindowConstructorOptions;
 
         /**
+         * Get raw construct options
+         */
+        public get rawBrowserWindowConstructorOptions() {
+            return this.browserWindowConstructorOptions;
+        }
+
+        /**
          * Build options
          */
         private readonly browserWindowbuildOptions: BuildOptions;
+
+        /**
+         * Get raw build options
+         */
+        public get rawBrowserWindowbuildOptions() {
+            return this.browserWindowbuildOptions;
+        }
 
         /**
          * Raw broswer window instance
@@ -99,6 +114,7 @@ export namespace Window {
                 }
                 if (!this.browserWindowConstructorOptions.webPreferences?.preload) {
                     this.browserWindowConstructorOptions.webPreferences.preload = Path.join(__dirname, "../preload/index.js");
+                    this.browserWindowConstructorOptions.webPreferences.sandbox = false;
                 }
                 if (!this.browserWindowConstructorOptions.icon) {
                     this.browserWindowConstructorOptions.icon = nativeImage.createFromDataURL(LogoIcon);
@@ -133,7 +149,7 @@ export namespace Window {
                     browserWindow.loadURL(this._windowPath);
                 }
                 this._rawBroswerWindow = browserWindow;
-                // dev tools short cut
+                // dev tools shortcut
                 optimizer.watchWindowShortcuts(this.rawBroswerWindow);
             }
             // default window action events
@@ -204,7 +220,9 @@ export namespace Window {
                 });
             }
             // done
-            this.logger.debug(`Window builded: id = "${this.rawBroswerWindow.id}", name = "${buildOptions.windowName}", path = "${this._windowPath}".`);
+            this.logger.debug(
+                `Window built: id = "${this.rawBroswerWindow.id}", name="${buildOptions.windowName}", path = "${this._windowPath}", preload="${constructOptions.webPreferences?.preload}".`
+            );
         }
 
         private logActionDebug(message: string): void {
@@ -234,17 +252,15 @@ export namespace Window {
                     minHeight: size.minHeight,
                     width: size.minWidth,
                     height: size.minHeight,
-                    frame: false,
-                    webPreferences: {
-                        nodeIntegration: true
-                    }
+                    frame: false
                 };
             }
 
             public get buildOptions(): BuildOptions {
                 return {
                     windowName: this.windowName,
-                    showWhenReady: true
+                    showWhenReady: true,
+                    invisibleNonAllowedAction: false
                 };
             }
         }
@@ -271,6 +287,13 @@ export namespace Window {
          */
         export function getWindowPoolMapClone(): WindowPoolType {
             return new Map([...windowPoolMap]);
+        }
+
+        /**
+         * Remove a map from window pool by window ID
+         */
+        export function removeMapFromWindowPool(windowId: number) {
+            windowPoolMap.delete(windowId);
         }
 
         /**

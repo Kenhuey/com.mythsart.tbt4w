@@ -84,8 +84,17 @@ export namespace Default {
             const senderWindow: BrowserWindow = Window.Util.getOwnerBrowserWindowByIpcMainEvent(event);
             return () => {
                 const convertedParams: typeof this.eventDefine.defaultParamsMainToRenderer = {
-                    isFocusd: senderWindow.isFocused(),
-                    isMaximized: senderWindow.isMaximized()
+                    is: {
+                        minimize: senderWindow.isMinimized(),
+                        maximize: senderWindow.isMaximized(),
+                        focus: senderWindow.isFocused()
+                    },
+                    allow: {
+                        minimize: senderWindow.isMinimizable(),
+                        maximize: senderWindow.isMaximizable(),
+                        close: senderWindow.isClosable()
+                    },
+                    invisibleNonAllowedAction: Window.Generator.getWindowPoolMapClone().get(senderWindow.id)?.rawBrowserWindowbuildOptions.invisibleNonAllowedAction === true ? true : false
                 };
                 senderWindow.webContents.send(this.eventChannelPrefix, convertedParams);
             };

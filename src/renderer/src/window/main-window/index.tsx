@@ -24,7 +24,7 @@ export default class MainWindow extends Base.Application.WindowRouteRecord {
         return defineComponent({
             setup: () => {
                 return () => (
-                    <WindowFrame title="TODO:I18N、中文字体 / TiebaTools 贴吧工具箱">
+                    <WindowFrame title="TODO:I18N / TiebaTools 贴吧工具箱">
                         <div class={style["main-window"]}>Main window content</div>
                     </WindowFrame>
                 );

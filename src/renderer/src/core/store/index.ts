@@ -5,7 +5,7 @@ export namespace Store {
     export const useCommonUnRef = defineStore("common", {
         state: () => {
             return {
-                windowStatus: { isFocusd: false, isMaximized: false } as IpcEventConstant.Default.WindowStatusType
+                windowStatus: { is: {}, allow: {} } as IpcEventConstant.Default.WindowStatusType
             };
         },
         getters: {},
