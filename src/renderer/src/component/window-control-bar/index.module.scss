@@ -1,7 +1,7 @@
 .control-bar {
     & {
         height: 32px;
-        background: #e1e1e1;
+        // background: #e1e1e1;
         display: flex;
         align-items: center;
         color: #1e1e1e;
@@ -68,7 +68,7 @@
 
         .control-button-close {
             &:hover {
-                background: rgba($color: #cf3d30, $alpha: 1);
+                background: rgba($color: #C42B1C, $alpha: 1);
                 color: #f7f9fc !important;
             }
         }
@@ -100,6 +100,6 @@
 
 .control-bar-blur {
     & {
-        background: none;
+        background: none !important;
     }
 }

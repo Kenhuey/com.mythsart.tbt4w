@@ -1,5 +1,92 @@
-.main-window {
+.main-window-frame {
     & {
-        background: #eee;
+        flex: 1;
+        display: flex;
+    }
+
+    .option-list-container {
+        & {
+            width: 36px;
+            background: #e1e1e1;
+            display: flex;
+            flex-direction: column;
+            padding: 8px 9px;
+        }
+
+        .option {
+            & {
+                $size: 24px;
+                width: $size * 1.5;
+                height: $size * 1.5;
+                font-size: $size;
+                color: #6b6b6b;
+                cursor: pointer;
+                transition: all 0.2s;
+                margin: 8px 0px;
+                border-radius: 4px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            &:hover {
+                color: #4672fb;
+            }
+        }
+
+        .option-active {
+            & {
+                background-color: rgba($color: #000, $alpha: 0.1);
+            }
+        }
+
+        .base-list-container {
+            & {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+
+        .dock-top-container {
+            & {
+                @extend .base-list-container;
+                // border-bottom: 1px solid rgba($color: #000, $alpha: 0.1);
+            }
+        }
+
+        .users-container {
+            & {
+                @extend .base-list-container;
+                flex: 1;
+                justify-content: flex-start;
+            }
+        }
+
+        .dock-bottom-container {
+            & {
+                @extend .base-list-container;
+                border-top: 1px solid rgba($color: #000, $alpha: 0.1);
+            }
+        }
+    }
+
+    .main-window-sub-frame {
+        & {
+            width: 100%;
+            height: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .router-view {
+            & {
+                flex: 1;
+                display: flex;
+                padding: 8px;
+            }
+        }
     }
 }

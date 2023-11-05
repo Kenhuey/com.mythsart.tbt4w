@@ -8,6 +8,12 @@ import { Hook } from "@renderer/core/hook";
 import DefaultIcon from "@renderer/asset/icon.png";
 import style from "./index.module.scss";
 
+export type PropsType = {
+    title?: string;
+    showIcon?: boolean;
+    backgroundColor?: string;
+};
+
 class WindowControlBar extends Base.Application.Component {
     public constructor() {
         super("window_control_bar");
@@ -20,14 +26,17 @@ class WindowControlBar extends Base.Application.Component {
     }
 
     public getComponent(): any {
-        return defineComponent<{ title?: string }>(
+        return defineComponent<PropsType>(
             (props) => {
                 // window status
                 const { windowStatus } = Store.useCommon();
                 // render
                 return () => (
-                    <div class={[style["control-bar"], windowStatus.value.is.focus ? null : style["control-bar-blur"]]}>
-                        <div class={style["icon"]} style={{ backgroundImage: `url(${DefaultIcon})` }}></div>
+                    <div
+                        class={[style["control-bar"], windowStatus.value.is.focus ? null : style["control-bar-blur"]]}
+                        style={{ backgroundColor: props.backgroundColor ? props.backgroundColor : "" }}
+                    >
+                        {props.showIcon ? <div class={style["icon"]} style={{ backgroundImage: `url(${DefaultIcon})` }}></div> : null}
                         <div class={style["title-bar"]}>{props.title}</div>
                         <div class={style["control-button-container"]}>
                             <div
@@ -73,7 +82,7 @@ class WindowControlBar extends Base.Application.Component {
                     </div>
                 );
             },
-            { props: ["title"] }
+            { props: ["title", "showIcon", "backgroundColor"] }
         );
     }
 }

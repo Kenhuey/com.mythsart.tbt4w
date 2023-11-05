@@ -2,6 +2,8 @@
 
 Tieba Tools For Windows - Refactor
 
+Still developing... Coming Soon
+
 ## Desc.
 
 An unofficial user utilities manager of Baidu-Tieba.

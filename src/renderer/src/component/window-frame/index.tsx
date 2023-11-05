@@ -1,6 +1,7 @@
 import { defineComponent, SlotsType } from "vue";
 import { Base } from "@renderer/core/base";
 import { Store } from "@renderer/core/store";
+import { PropsType as ControlBarPropsType } from "@renderer/component/window-control-bar";
 import ControlBar from "@renderer/component/window-control-bar";
 import style from "./index.module.scss";
 
@@ -11,7 +12,7 @@ class WindowFrame extends Base.Application.Component {
 
     public getComponent(): any {
         return defineComponent<
-            { title?: string },
+            { showControlBar?: boolean; controlBarOptions?: ControlBarPropsType },
             {},
             "",
             SlotsType<{
@@ -24,13 +25,13 @@ class WindowFrame extends Base.Application.Component {
                 // render
                 return () => (
                     <div class={[style["window-frame"], windowStatus.value.is.maximize ? null : style["border"], windowStatus.value.is.focus ? null : style["window-frame-blur"]]}>
-                        <ControlBar title={props.title} />
+                        {props.showControlBar ? <ControlBar title={props.controlBarOptions?.title} /> : null}
                         <div class={style["content"]}>{slots.default && slots.default()}</div>
                     </div>
                 );
             },
             {
-                props: ["title"]
+                props: ["showControlBar", "controlBarOptions"]
             }
         );
     }

@@ -235,42 +235,6 @@ export namespace Window {
     }
 
     /**
-     * Window presets
-     */
-    export namespace Preset {
-        /**
-         * Main window
-         */
-        export class MainWindowPreset extends Base.Application.BaseWindowPreset {
-            public get windowName(): string {
-                return WindowNameConstance.MainWindow;
-            }
-
-            public get constructOptions(): Electron.BrowserWindowConstructorOptions {
-                const size = {
-                    minWidth: 1024,
-                    minHeight: 704
-                };
-                return {
-                    minWidth: size.minWidth,
-                    minHeight: size.minHeight,
-                    width: size.minWidth,
-                    height: size.minHeight,
-                    frame: false
-                };
-            }
-
-            public get buildOptions(): BuildOptions {
-                return {
-                    windowName: this.windowName,
-                    showWhenReady: true,
-                    invisibleNonAllowedAction: false
-                };
-            }
-        }
-    }
-
-    /**
      * Window generator
      */
     export namespace Generator {
@@ -308,6 +272,43 @@ export namespace Window {
             const windowInstance: Instance = new Instance(windowPreset.constructOptions, windowPreset.buildOptions);
             windowPoolMap.set(windowInstance.rawBroswerWindow.id, windowInstance);
             return windowInstance;
+        }
+    }
+
+    /**
+     * Window presets
+     */
+    export namespace Preset {
+        /**
+         * Main window
+         */
+        export class MainWindowPreset extends Base.Application.BaseWindowPreset {
+            public get windowName(): string {
+                return WindowNameConstance.MainWindow;
+            }
+
+            public get constructOptions(): Electron.BrowserWindowConstructorOptions {
+                const size = {
+                    minWidth: 1024,
+                    minHeight: 736
+                };
+                return {
+                    title: "Tieba Tools",
+                    minWidth: size.minWidth,
+                    minHeight: size.minHeight,
+                    width: size.minWidth,
+                    height: size.minHeight,
+                    frame: false
+                };
+            }
+
+            public get buildOptions(): BuildOptions {
+                return {
+                    windowName: this.windowName,
+                    showWhenReady: true,
+                    invisibleNonAllowedAction: false
+                };
+            }
         }
     }
 }
