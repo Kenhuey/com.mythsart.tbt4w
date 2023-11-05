@@ -7,7 +7,7 @@
     .option-list-container {
         & {
             width: 36px;
-            background: #e1e1e1;
+            background: #e5e5e5;
             display: flex;
             flex-direction: column;
             padding: 8px 9px;
@@ -41,9 +41,18 @@
         }
 
         .option-active {
+            $color: rgba(
+                $color: #000,
+                $alpha: 0.6
+            );
+
             & {
-                color: $optionColor;
+                color: $color;
                 background-color: rgba($color: #000, $alpha: 0.1);
+            }
+
+            &:hover {
+                color: $color;
             }
         }
 
