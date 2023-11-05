@@ -45,7 +45,7 @@ export namespace Application {
         for (const event of events) {
             // receive
             ipcMain.on(event.eventChannelPrefix, (_event, params) => {
-                logger.info(`${loggerMessagePrefix} received params, channel = "${event.eventChannelPrefix}", params = ${JSON.stringify(params)}.`);
+                logger.info(`${loggerMessagePrefix} received, channel = "${event.eventChannelPrefix}", params = ${JSON.stringify(params)}.`);
                 _event.returnValue = null;
                 event.receive(_event, params)();
             });
@@ -72,8 +72,6 @@ export namespace Application {
         // application initialize
         app.whenReady()
             .then(() => {
-                // application initialized
-                mainInstance.onMounted();
                 logApplicationInformation();
                 // register IpcMain events
                 registerIpcMainEvents();
@@ -89,6 +87,8 @@ export namespace Application {
                         // TODO: 单例启动提示 notif..
                     });
                 }
+                // application initialized
+                mainInstance.onMounted();
             })
             .catch((error: unknown) => {
                 console.error(error);

@@ -7,9 +7,6 @@ import { IpcEventConstant } from "../../main/constant/ipc-event";
 import { Hook } from "./core/hook";
 import { createPinia } from "pinia";
 import Window from "@renderer/window";
-import "@renderer/window/main-window";
-
-// TODO: 前端的 ipc 没准也可以用装饰器封装，这样在事件截获好像更方便了，做成 IPC event services
 
 /**
  * Renderer entry instance

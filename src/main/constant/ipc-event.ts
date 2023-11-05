@@ -44,6 +44,7 @@ export namespace IpcEventConstant {
          * Renderer to main sync
          */
         public rendererSendToMainSync(): void {
+            // TODO: 试试 return 能不能获取到数据
             this.ipcRenderer?.sendSync(this.channel, this.defaultParamsRendererToMain);
         }
 
