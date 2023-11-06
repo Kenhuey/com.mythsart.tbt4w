@@ -9,6 +9,7 @@ import { RouterView } from "vue-router";
 import ControlBar from "@renderer/component/window-control-bar";
 import WindowFrame from "@renderer/component/window-frame";
 import style from "./index.module.scss";
+import { Store } from "@renderer/core/store";
 
 /**
  * Main window
@@ -48,11 +49,19 @@ export default class MainWindow extends Base.Application.WindowRouteRecord {
 
     private readonly currentRouterName: Ref<string> = ref("");
 
+    private readonly routerViewMaxHeight: Ref<number> = ref(0);
+
+    private readonly controlBarRef: Ref<HTMLElement | null> = ref(null);
+
+    private readonly routerViewRef: Ref<HTMLElement | null> = ref(null);
+
     private router?: VueRouter;
 
     public getComponent() {
         return defineComponent({
             setup: () => {
+                // window status
+                const { windowStatus } = Store.useCommon();
                 // watch router
                 const router = useRouter();
                 this.router = router;
@@ -62,7 +71,22 @@ export default class MainWindow extends Base.Application.WindowRouteRecord {
                 });
                 // mounted
                 onMounted(() => {
+                    // push to overview
                     router.push({ name: this.viewName.overview });
+                    // scroll bar
+                    const onResize = () => {
+                        this.routerViewMaxHeight.value =
+                            window.innerHeight -
+                            this.controlBarRef.value!.clientHeight -
+                            parseInt(this.routerViewRef.value!.computedStyleMap().get("padding-top")!.toString().replace("px", "")) -
+                            parseInt(this.routerViewRef.value!.computedStyleMap().get("padding-bottom")!.toString().replace("px", "")) -
+                            (windowStatus.value.is.maximize ? 0 : 2);
+                        console.log(this.routerViewMaxHeight.value);
+                    };
+                    window.addEventListener("resize", () => {
+                        onResize();
+                    });
+                    onResize();
                 });
                 // render
                 return () => (
@@ -119,13 +143,17 @@ export default class MainWindow extends Base.Application.WindowRouteRecord {
                                 </div>
                             </div>
                             <div class={style["main-window-sub-frame"]}>
-                                <ControlBar showBackgroundColor={true} />
-                                <RouterView
-                                    class={style["option-content-container"]}
-                                    v-slots={{
-                                        default: ({ Component }: { Component: VNode }) => <KeepAlive>{Component}</KeepAlive>
-                                    }}
-                                />
+                                <div ref={this.controlBarRef}>
+                                    <ControlBar />
+                                </div>
+                                <div ref={this.routerViewRef} class={[style["option-content-container"]]} style={{ maxHeight: this.routerViewMaxHeight.value + "px" }}>
+                                    <RouterView
+                                        class="default-scroll"
+                                        v-slots={{
+                                            default: ({ Component }: { Component: VNode }) => <KeepAlive>{Component}</KeepAlive>
+                                        }}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </WindowFrame>

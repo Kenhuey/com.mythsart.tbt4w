@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "en";
+    src: url("../asset/font/en.otf");
+}
+
 .window {
     & {
         width: 100%;
@@ -5,7 +10,8 @@
         display: flex;
         flex-direction: row;
         justify-content: center;
-        font-family: "Trebuchet MS", "微軟雅黑", "微软雅黑", "Microsoft YaHei";
+        font-family: "en", "Trebuchet MS", "微軟雅黑", "微软雅黑", "Microsoft YaHei";
+        overflow: hidden;
     }
 
     .router-view {

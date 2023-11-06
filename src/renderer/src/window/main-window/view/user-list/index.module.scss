@@ -1,4 +1,30 @@
 .container {
     & {
+        flex: 1;
+        // max-height: 50px;
+    }
+
+    .title-container {
+        & {
+            border-bottom: 1px solid rgba($color: #000000, $alpha: 0.1);
+            padding-bottom: 8px;
+        }
+
+        $font-color: #1e1e1e;
+
+        .title {
+            & {
+                font-size: 16px;
+                font-weight: bold;
+                color: $font-color;
+            }
+        }
+
+        .sub-title {
+            & {
+                font-size: 12px;
+                color: rgba($color: $font-color, $alpha: 0.5);
+            }
+        }
     }
 }

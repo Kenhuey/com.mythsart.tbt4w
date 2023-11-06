@@ -6,11 +6,36 @@ body,
     user-select: none;
     font-size: 12px;
     line-height: 24px;
-    color: #1e1e1e;
+    color: #1f1f1f;
     width: 100vw;
     height: 100vh;
 }
 
 * {
     text-overflow: ellipsis;
+}
+
+.default-scroll {
+    & {
+        overflow-y: overlay;
+    }
+
+    &::-webkit-scrollbar {
+        & {
+            width: 3px;
+            height: 3px;
+        }
+    }
+
+    &::-webkit-scrollbar-thumb {
+        $color: #000;
+
+        & {
+            background: rgba($color: $color, $alpha: 0.25);
+        }
+
+        &:hover {
+            background: rgba($color: $color, $alpha: 0.5);
+        }
+    }
 }
