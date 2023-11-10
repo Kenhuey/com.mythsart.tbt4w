@@ -8,6 +8,10 @@ class Overview extends Base.Application.Component {
     }
 
     public getComponent(): any {
+        const test = [0];
+        for (let i = 1; i < 100; i++) {
+            test.push(i);
+        }
         return defineComponent(() => {
             // render
             return () => (
@@ -16,7 +20,20 @@ class Overview extends Base.Application.Component {
                         <div class={style["title"]}>User List</div>
                         <div class={style["sub-title"]}>9 Records</div>
                     </div>
-                    TODO: 自设表格（筛选），标题栏添加账号按钮
+                    <div class={[style["list-container"], "default-scroll "]}>
+                        TODO: 自设表格（筛选），标题栏添加账号按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮
+                        {test.map((v) => (
+                            <div
+                                style={{
+                                    width: "100%",
+                                    background: "#eee",
+                                    marginTop: "2px"
+                                }}
+                            >
+                                {v}
+                            </div>
+                        ))}
+                    </div>
                 </div>
             );
         });

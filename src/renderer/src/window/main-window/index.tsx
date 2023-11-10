@@ -51,6 +51,8 @@ export default class MainWindow extends Base.Application.WindowRouteRecord {
 
     private readonly routerViewMaxHeight: Ref<number> = ref(0);
 
+    private readonly routerViewMaxWidth: Ref<number> = ref(0);
+
     private readonly controlBarRef: Ref<HTMLElement | null> = ref(null);
 
     private readonly routerViewRef: Ref<HTMLElement | null> = ref(null);
@@ -75,13 +77,16 @@ export default class MainWindow extends Base.Application.WindowRouteRecord {
                     router.push({ name: this.viewName.overview });
                     // scroll bar
                     const onResize = () => {
+                        // max-height
                         this.routerViewMaxHeight.value =
                             window.innerHeight -
                             this.controlBarRef.value!.clientHeight -
                             parseInt(this.routerViewRef.value!.computedStyleMap().get("padding-top")!.toString().replace("px", "")) -
                             parseInt(this.routerViewRef.value!.computedStyleMap().get("padding-bottom")!.toString().replace("px", "")) -
                             (windowStatus.value.is.maximize ? 0 : 2);
-                        console.log(this.routerViewMaxHeight.value);
+                        // max-width
+                        // this.routerViewMaxWidth.value = this.routerViewRef.value!.clientWidth;
+                        // console.log(this.routerViewMaxWidth.value);
                     };
                     window.addEventListener("resize", () => {
                         onResize();
@@ -146,9 +151,9 @@ export default class MainWindow extends Base.Application.WindowRouteRecord {
                                 <div ref={this.controlBarRef}>
                                     <ControlBar />
                                 </div>
-                                <div ref={this.routerViewRef} class={[style["option-content-container"]]} style={{ maxHeight: this.routerViewMaxHeight.value + "px" }}>
+                                <div ref={this.routerViewRef} class={style["option-content-container"]} style={{ maxHeight: this.routerViewMaxHeight.value + "px" }}>
                                     <RouterView
-                                        class="default-scroll"
+                                        class={style["router-view"]}
                                         v-slots={{
                                             default: ({ Component }: { Component: VNode }) => <KeepAlive>{Component}</KeepAlive>
                                         }}

@@ -17,13 +17,18 @@ body,
 
 .default-scroll {
     & {
-        overflow-y: overlay;
+        // overflow: overlay;
+        overflow: auto;
+        word-break: break-all;
+        white-space: normal;
     }
+
+    $size: 3px;
 
     &::-webkit-scrollbar {
         & {
-            width: 3px;
-            height: 3px;
+            width: calc($size);
+            height: calc($size);
         }
     }
 
@@ -31,11 +36,12 @@ body,
         $color: #000;
 
         & {
-            background: rgba($color: $color, $alpha: 0.25);
+            border-radius: $size !important ;
+            background: rgba($color: $color, $alpha: 0.25) !important;
         }
 
         &:hover {
-            background: rgba($color: $color, $alpha: 0.5);
+            background: rgba($color: $color, $alpha: 0.5) !important;
         }
     }
 }

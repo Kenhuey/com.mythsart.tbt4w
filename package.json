@@ -44,6 +44,7 @@
         "eslint-plugin-vue": "^9.17.0",
         "less": "^4.2.0",
         "log4js": "^6.9.1",
+        "naive-ui": "^2.35.0",
         "pinia": "^2.1.7",
         "prettier": "^3.0.2",
         "reflect-metadata": "^0.1.13",
