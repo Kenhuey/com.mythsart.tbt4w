@@ -112,7 +112,7 @@ export default class MainWindow extends Base.Application.WindowRouteRecord {
                                         )}
                                     </div>
                                 </div>
-                                <div class={style["users-container"]}>
+                                <div class={style["tasks-container"]}>
                                     <div
                                         class={[style["option"], ...(this.currentRouterName.value === this.viewName.taskList ? [style["option-active"]] : [])]}
                                         onClick={() => this.router?.push({ name: this.viewName.taskList })}
