@@ -4,7 +4,7 @@ import { Base } from "@renderer/core/base";
 import { Router } from "@renderer/core/router";
 import { RouteRecordRaw, useRouter, Router as VueRouter } from "vue-router";
 import { Icon } from "@vicons/utils";
-import { AppsListDetail20Regular, AppsListDetail20Filled, Settings20Regular, Settings20Filled, Person20Regular, Person20Filled } from "@vicons/fluent";
+import { AppsListDetail20Regular, AppsListDetail20Filled, Settings20Regular, Settings20Filled } from "@vicons/fluent";
 import { RouterView } from "vue-router";
 import ControlBar from "@renderer/component/window-control-bar";
 import WindowFrame from "@renderer/component/window-frame";
@@ -19,7 +19,7 @@ export default class MainWindow extends Base.Application.WindowRouteRecord {
     private readonly viewName = {
         overview: "overview",
         setting: "setting",
-        userList: "user-list"
+        taskList: "task-list"
     } as const;
 
     public get raw(): RouteRecordRaw {
@@ -39,9 +39,9 @@ export default class MainWindow extends Base.Application.WindowRouteRecord {
                     component: () => import("./view/setting")
                 },
                 {
-                    path: `/${this.viewName.userList}`,
-                    name: this.viewName.userList,
-                    component: () => import(`./view/user-list`)
+                    path: `/${this.viewName.taskList}`,
+                    name: this.viewName.taskList,
+                    component: () => import(`./view/task-list`)
                 }
             ]
         };
@@ -50,8 +50,6 @@ export default class MainWindow extends Base.Application.WindowRouteRecord {
     private readonly currentRouterName: Ref<string> = ref("");
 
     private readonly routerViewMaxHeight: Ref<number> = ref(0);
-
-    private readonly routerViewMaxWidth: Ref<number> = ref(0);
 
     private readonly controlBarRef: Ref<HTMLElement | null> = ref(null);
 
@@ -116,16 +114,16 @@ export default class MainWindow extends Base.Application.WindowRouteRecord {
                                 </div>
                                 <div class={style["users-container"]}>
                                     <div
-                                        class={[style["option"], ...(this.currentRouterName.value === this.viewName.userList ? [style["option-active"]] : [])]}
-                                        onClick={() => this.router?.push({ name: this.viewName.userList })}
+                                        class={[style["option"], ...(this.currentRouterName.value === this.viewName.taskList ? [style["option-active"]] : [])]}
+                                        onClick={() => this.router?.push({ name: this.viewName.taskList })}
                                     >
-                                        {this.currentRouterName.value === this.viewName.userList ? (
+                                        {this.currentRouterName.value === this.viewName.taskList ? (
                                             <Icon>
-                                                <Person20Filled />
+                                                <AppsListDetail20Filled />
                                             </Icon>
                                         ) : (
                                             <Icon>
-                                                <Person20Regular />
+                                                <AppsListDetail20Regular />
                                             </Icon>
                                         )}
                                     </div>

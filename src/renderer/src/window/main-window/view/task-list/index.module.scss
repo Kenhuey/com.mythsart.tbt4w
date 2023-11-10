@@ -1,0 +1,238 @@
+.container {
+    .title-container {
+        & {
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgba($color: #1e1e1e, $alpha: 0.15);
+            padding-bottom: 8px;
+            margin-bottom: 8px;
+        }
+
+        .title-button-container {
+            & {
+                font-size: 12px !important;
+                line-height: 24px;
+                color: rgba($color: #fff, $alpha: 1);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                transition: all 0.2s;
+                background: #2080f0;
+                padding-left: 12px;
+                padding-right: 12px;
+                border-radius: 3px;
+            }
+
+            &:hover {
+                background: rgba($color: #4098fc, $alpha: 1);
+            }
+
+            &:active {
+                background: rgba($color: #1060c9, $alpha: 1);
+            }
+        }
+    }
+
+    .list-container {
+        & {
+            flex: 1;
+            max-height: 100%;
+            width: 100%;
+        }
+
+        .user-container {
+            & {
+                display: flex;
+                padding-bottom: 16px;
+                padding-top: 16px;
+                overflow: hidden;
+                cursor: pointer;
+                margin: 8px;
+                transition: all 0.2s;
+                border-bottom: 1px solid rgba($color: #000000, $alpha: 0.08);
+                box-sizing: border-box;
+            }
+
+            p:hover::after {
+                content: attr(title);
+                position: absolute;
+                z-index: 9999;
+            }
+
+            .border-left {
+                & {
+                    position: absolute;
+                    background: transparent;
+                    width: 0px;
+                    height: calc(64px / 1.5);
+                    transition: all 0.2s;
+                    margin-top: calc(64px / 6);
+                    width: 4px;
+                    border-radius: 4px;
+                }
+            }
+
+            &:hover {
+                & {
+                    padding-left: 12px;
+                    border-bottom: 1px solid transparent;
+                    box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.16);
+                    background: rgba(0, 0, 0, 0.02);
+                    border-radius: 6px;
+                }
+
+                .border-left {
+                    & {
+                        background: rgba($color: #4098fc, $alpha: 1);
+                        margin-left: -14px;
+                    }
+                }
+
+                .content {
+                    .task-detail {
+                        & {
+                            height: calc(50% - 6px);
+                        }
+                    }
+                }
+
+                .to-icon-container {
+                    & {
+                        padding-right: 12px;
+                        width: 48px;
+                        opacity: 1;
+                    }
+                }
+            }
+
+            .to-icon-container {
+                & {
+                    width: 0px;
+                    font-size: 24px;
+                    color: rgba($color: #1e1e1e, $alpha: 0.75);
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: flex-end;
+                    opacity: 0;
+                    transition: all 0.2s;
+                }
+            }
+
+            .avatar {
+                $size: 64px;
+
+                & {
+                    background: #ccc;
+                    width: $size;
+                    height: $size;
+                    border-radius: $size;
+                }
+            }
+
+            .content {
+                & {
+                    padding-left: 12px;
+                    padding-right: 12px;
+                    display: flex;
+                    align-items: center;
+                    flex-direction: row;
+                    flex: 1;
+                }
+
+                .task-detail {
+                    & {
+                        display: flex;
+                        height: 100%;
+                        flex-direction: column;
+                        justify-content: flex-end;
+                        transition: all 0.2s !important;
+                    }
+
+                    .date {
+                        & {
+                            color: rgba($color: #1e1e1e, $alpha: 0.5);
+                            font-size: 12px;
+                        }
+                    }
+                }
+
+                .username {
+                    & {
+                        flex: 1;
+                        display: flex;
+                        justify-content: center;
+                        flex-direction: column;
+                    }
+
+                    .status-dot {
+                        $size: 8px;
+
+                        & {
+                            width: $size;
+                            height: $size;
+                            border-radius: $size;
+                        }
+                    }
+
+                    .status-dot-offline {
+                        @extend .status-dot;
+
+                        & {
+                            background: #f0a020;
+                        }
+                    }
+
+                    .status-dot-waiting {
+                        @extend .status-dot;
+
+                        & {
+                            background: #2080f0;
+                        }
+                    }
+
+                    .status-dot-running {
+                        @extend .status-dot;
+
+                        & {
+                            background: #18a058;
+                        }
+                    }
+
+                    .status-dot-error {
+                        @extend .status-dot;
+
+                        & {
+                            background: #d03050;
+                        }
+                    }
+
+                    .original-name {
+                        & {
+                            color: rgba($color: #1e1e1e, $alpha: 1);
+                            font-size: 16px;
+                            line-height: 16px;
+                        }
+                    }
+
+                    .nick-name {
+                        & {
+                            color: rgba($color: #1e1e1e, $alpha: 0.5);
+                            font-size: 12px;
+                        }
+                    }
+
+                    .status {
+                        @extend .nick-name;
+
+                        & {
+                            display: flex;
+                            align-items: center;
+                            line-height: 16px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
