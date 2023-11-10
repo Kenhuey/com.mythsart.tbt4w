@@ -4,7 +4,7 @@ import { Base } from "@renderer/core/base";
 import { Router } from "@renderer/core/router";
 import { RouteRecordRaw, useRouter, Router as VueRouter } from "vue-router";
 import { Icon } from "@vicons/utils";
-import { AppsListDetail20Regular, AppsListDetail20Filled, Settings20Regular, Settings20Filled } from "@vicons/fluent";
+import { AppsListDetail20Regular, AppsListDetail20Filled, Settings20Regular, Settings20Filled, DataPie20Regular, DataPie20Filled } from "@vicons/fluent";
 import { RouterView } from "vue-router";
 import ControlBar from "@renderer/component/window-control-bar";
 import WindowFrame from "@renderer/component/window-frame";
@@ -103,11 +103,11 @@ export default class MainWindow extends Base.Application.WindowRouteRecord {
                                     >
                                         {this.currentRouterName.value === this.viewName.overview ? (
                                             <Icon>
-                                                <AppsListDetail20Filled />
+                                                <DataPie20Filled />
                                             </Icon>
                                         ) : (
                                             <Icon>
-                                                <AppsListDetail20Regular />
+                                                <DataPie20Regular />
                                             </Icon>
                                         )}
                                     </div>
