@@ -1,4 +1,80 @@
+.drawer {
+    & {
+        $padding: 16px;
+        background: #fff;
+        // width: calc(100% - $padding * 2);
+        height: calc(100% - $padding * 2);
+        position: fixed;
+        z-index: 9999;
+        padding: $padding;
+        // right: -100%;
+        transition: right 0.5s;
+        display: flex;
+    }
+
+    .content {
+        & {
+            flex: 1;
+        }
+    }
+
+    .title-container {
+        & {
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgba($color: #1e1e1e, $alpha: 0.15);
+            padding-bottom: 8px;
+            margin-bottom: 8px;
+            // justify-content: flex-end;
+            // text-align: right;
+        }
+
+        .inner {
+            & {
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+                transition: all 0.2s;
+                padding: 3px 6px;
+                padding-left: 19px;
+            }
+
+            * {
+                transition: all 0.2s;
+                color: rgba($color: #1e1e1e, $alpha: 0.5) !important;
+            }
+
+            &:hover {
+                * {
+                    color: rgba($color: #1e1e1e, $alpha: 0.75) !important;
+                }
+            }
+
+            .back-icon {
+                & {
+                    transition: all 0.2s;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-left: 3px;
+                    font-size: 18px;
+                }
+            }
+
+            .back-text {
+                & {
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+}
+
 .container {
+    & {
+        padding: 16px;
+    }
+
     .title-container {
         & {
             display: flex;
