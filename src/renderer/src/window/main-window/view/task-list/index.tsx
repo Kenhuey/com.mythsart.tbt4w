@@ -1,7 +1,7 @@
 import { defineComponent } from "vue";
 import { Base } from "@renderer/core/base";
 import { Icon } from "@vicons/utils";
-import { ArrowRight20Filled } from "@vicons/fluent";
+import { ChevronRight20Filled } from "@vicons/fluent";
 import style from "./index.module.scss";
 
 class Overview extends Base.Application.Component {
@@ -50,7 +50,7 @@ class Overview extends Base.Application.Component {
                                 </div>
                                 <div class={style["to-icon-container"]}>
                                     <Icon>
-                                        <ArrowRight20Filled />
+                                        <ChevronRight20Filled />
                                     </Icon>
                                 </div>
                             </div>
