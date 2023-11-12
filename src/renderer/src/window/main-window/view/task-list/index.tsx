@@ -26,7 +26,7 @@ class Overview extends Base.Application.Component {
                         </div>
                     </div>
                     <div class={[style["list-container"], "default-scroll"]}>
-                        <div class={style["user-container"]} title="Click To Edit Task.">
+                        <div class={style["user-container"]} title="Click To Edit Task">
                             <div class={style["border-left"]}></div>
                             <div class={style["avatar"]}></div>
                             <div class={style["content"]}>
