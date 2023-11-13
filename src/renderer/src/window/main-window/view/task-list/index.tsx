@@ -1,7 +1,7 @@
 import { Ref, defineComponent, ref, onMounted } from "vue";
 import { Base } from "@renderer/core/base";
 import { Icon } from "@vicons/utils";
-import { ChevronRight20Filled } from "@vicons/fluent";
+import { ChevronRight20Filled, ChevronLeft20Filled } from "@vicons/fluent";
 import style from "./index.module.scss";
 
 class Overview extends Base.Application.Component {
@@ -31,26 +31,34 @@ class Overview extends Base.Application.Component {
             return () => (
                 <>
                     {/* drawer */}
-                    {/* drawer */}
-                    <div class={style["drawer"]} style={{ width: `${this.containerWidth.value}px`, right: `${this.drawerUserId.value === null ? "-100%" : "0px"}` }}>
+                    <div
+                        class={style["drawer"]}
+                        style={{ width: `${this.containerWidth.value}px`, opacity: `${this.drawerUserId.value === null ? "0" : "1"}`, zIndex: this.drawerUserId.value === null ? -9999 : 9999 }}
+                    >
                         <div class={style["content"]}>
                             <div class={style["title-container"]}>
-                                <div style={{ flex: 1 }}>
-                                    <div class="default-title-text">
-                                        <span>Username</span>
-                                    </div>
-                                    <div class="default-sub-title-text">{"Nickname"}</div>
-                                </div>
                                 <div
                                     class={style["inner"]}
                                     onClick={() => {
                                         this.drawerUserId.value = null;
                                     }}
                                 >
-                                    <span class={style["back-text"]}>Back To List</span>
                                     <Icon class={style["back-icon"]}>
-                                        <ChevronRight20Filled />
+                                        <ChevronLeft20Filled />
                                     </Icon>
+                                    <span class={style["back-text"]}>Back To List</span>
+                                </div>
+                                <div style={{ flex: 1 }}>
+                                    <div>
+                                        <span class={style["nick-name"]} style={{ marginRight: "6px" }}>
+                                            ({"Nickname"})
+                                        </span>
+                                        <span class={style["original-name"]}>Username</span>
+                                    </div>
+                                    <div class="default-sub-title-text">
+                                        <span>Last Update:&nbsp;</span>
+                                        <span> {new Date().toString()}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -88,7 +96,7 @@ class Overview extends Base.Application.Component {
                                         </div>
                                         <div class={style["status"]}>
                                             <div class={style["status-dot-error"]}></div>
-                                            <span style={{ marginLeft: "6px" }}>Offline</span>
+                                            <span style={{ marginLeft: "6px" }}>Task Offline</span>
                                         </div>
                                     </div>
                                     <div class={style["task-detail"]}>
