@@ -55,11 +55,18 @@ class Overview extends Base.Application.Component {
                                         </span>
                                         <span class={style["original-name"]}>Username</span>
                                     </div>
-                                    <div class="default-sub-title-text">
-                                        <span>Last Update:&nbsp;</span>
-                                        <span> {new Date().toString()}</span>
+                                    <div class={style["status"]}>
+                                        <span style={{ marginRight: "6px" }}>Task Offline</span>
+                                        <div class={style["status-dot-error"]}></div>
+                                    </div>
+                                    <div>
+                                        <div class="default-sub-title-text" style={{ textAlign: "right" }}>
+                                            <span>Last Update:&nbsp;</span>
+                                            <span> {new Date().toString()}</span>
+                                        </div>
                                     </div>
                                 </div>
+                                <div class={style["avatar"]} style={{ marginLeft: "12px" }}></div>
                             </div>
                         </div>
                     </div>
