@@ -8,8 +8,8 @@
         z-index: 9999;
         padding: $padding;
         // right: -100%;
-        transition: all 0.2s;
         display: flex;
+        transition: opacity 0.2s;
         opacity: 1;
     }
 
@@ -69,12 +69,18 @@
 
             * {
                 transition: all 0.2s;
-                color: rgba($color: #1e1e1e, $alpha: 0.75) !important;
+                color: rgba($color: #1e1e1e, $alpha: 0.5) !important;
             }
 
             &:hover {
                 * {
-                    color: rgba($color: #1e1e1e, $alpha: 1) !important;
+                    color: rgba($color: #1e1e1e, $alpha: 0.75) !important;
+                }
+
+                .back-icon {
+                    & {
+                        margin-right: -3px;
+                    }
                 }
             }
 
@@ -101,6 +107,8 @@
 .container {
     & {
         padding: 16px;
+        transition: opacity 0.2s;
+        opacity: 1;
     }
 
     .title-container {

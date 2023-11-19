@@ -33,7 +33,7 @@ class Overview extends Base.Application.Component {
                     {/* drawer */}
                     <div
                         class={style["drawer"]}
-                        style={{ width: `${this.containerWidth.value}px`, opacity: `${this.drawerUserId.value === null ? "0" : "1"}`, zIndex: this.drawerUserId.value === null ? -9999 : 9999 }}
+                        style={{ width: `${this.containerWidth.value}px`, opacity: `${this.drawerUserId.value === null ? "0" : "1"}`, zIndex: this.drawerUserId.value === null ? -1000 : 1000 }}
                     >
                         <div class={style["content"]}>
                             <div class={style["title-container"]}>
@@ -71,7 +71,7 @@ class Overview extends Base.Application.Component {
                         </div>
                     </div>
                     {/* view */}
-                    <div ref={this.containerRef} class={style["container"]}>
+                    <div ref={this.containerRef} class={style["container"]} style={{ opacity: `${this.drawerUserId.value === null ? "1" : "0"}` }}>
                         <div class={style["title-container"]}>
                             <div style={{ flex: 1 }}>
                                 <div class="default-title-text">Task List</div>
